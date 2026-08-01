@@ -37,7 +37,7 @@ permissions:
 
 jobs:
   generate-report:
-    runs-on: ubuntu-latest
+    runs-on: [self-hosted, linux, ARM64]
 
     steps:
       - name: Checkout repository
@@ -191,7 +191,7 @@ jobs:
 
   deploy:
     needs: generate-report
-    runs-on: ubuntu-latest
+    runs-on: [self-hosted, linux, ARM64]
     
     environment:
       name: github-pages
