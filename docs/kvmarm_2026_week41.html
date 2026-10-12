@@ -1,0 +1,1459 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KVMARM 邮件列表 AI 总结报告</title>
+    <style>
+        body {
+            font-family: 'Courier New', 'Courier', monospace;
+            line-height: 1.5;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 30px 40px;
+            background-color: #ffffff;
+            color: #222;
+        }
+        .container {
+            background: #ffffff;
+        }
+        h1 {
+            font-size: 2.2em;
+            font-weight: bold;
+            color: #000;
+            margin-bottom: 0.3em;
+            text-align: center;
+            border-bottom: 2px solid #000;
+            padding-bottom: 15px;
+        }
+        h2 {
+            font-size: 1.6em;
+            font-weight: bold;
+            color: #000;
+            margin-top: 2em;
+            margin-bottom: 0.6em;
+            border-bottom: 1px solid #333;
+            padding-bottom: 8px;
+        }
+        h3 {
+            font-size: 1.2em;
+            font-weight: bold;
+            color: #111;
+            margin-top: 1.5em;
+            margin-bottom: 0.5em;
+        }
+        h4 {
+            font-size: 1.05em;
+            font-weight: bold;
+            color: #333;
+            margin-top: 1.2em;
+            margin-bottom: 0.5em;
+        }
+        .meta-info {
+            background: #f9f9f9;
+            border: 1px solid #ddd;
+            padding: 15px 20px;
+            margin: 20px 0;
+            font-size: 0.95em;
+            line-height: 1.6;
+        }
+        .meta-info p {
+            margin: 6px 0;
+            color: #444;
+        }
+        .meta-info strong {
+            color: #000;
+            font-weight: bold;
+        }
+        .stats {
+            display: table;
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            border: 1px solid #000;
+        }
+        .stat-card {
+            display: table-cell;
+            border: 1px solid #000;
+            padding: 12px 15px;
+            text-align: center;
+            background: #fafafa;
+        }
+        .stat-card h3 {
+            margin: 0;
+            color: #000;
+            font-size: 1.8em;
+            font-weight: bold;
+            border: none;
+            padding: 0;
+        }
+        .stat-card p {
+            margin: 5px 0 0 0;
+            color: #444;
+            font-size: 0.9em;
+            font-weight: normal;
+        }
+        .category {
+            margin: 30px 0;
+        }
+        .thread {
+            margin: 25px 0;
+            padding: 15px;
+            background: #fafafa;
+            border: 1px solid #ccc;
+            page-break-inside: avoid;
+        }
+        .thread-header {
+            margin-bottom: 12px;
+            border-bottom: 1px solid #ddd;
+            padding-bottom: 10px;
+        }
+        .thread-header h3 {
+            font-size: 1.15em;
+            font-weight: bold;
+            color: #000;
+            margin: 0;
+        }
+        .thread-meta {
+            display: block;
+            margin: 8px 0 12px 0;
+            font-size: 0.9em;
+            color: #555;
+            font-style: italic;
+        }
+        .thread-meta span {
+            margin-right: 15px;
+        }
+        .ai-summary {
+            background: #fff;
+            border-left: 3px solid #666;
+            padding: 12px 15px;
+            margin: 15px 0;
+            line-height: 1.6;
+            color: #222;
+            font-style: italic;
+        }
+        .email-list {
+            background: #fff;
+            border: 1px solid #ccc;
+            padding: 10px 15px;
+            font-family: 'Courier New', 'Consolas', monospace;
+            font-size: 0.88em;
+            line-height: 1.5;
+            overflow-x: auto;
+            margin: 10px 0;
+        }
+        .email-item {
+            margin: 4px 0;
+            padding: 2px 0;
+            color: #222;
+        }
+        .email-item.historical {
+            background: #f5f5f5;
+            border-left: 3px solid #999;
+            padding-left: 8px;
+            opacity: 0.8;
+        }
+        .email-item.new {
+            background: #fffef0;
+            border-left: 3px solid #0066cc;
+            padding-left: 8px;
+        }
+        .email-date {
+            color: #0066cc;
+            font-weight: bold;
+        }
+        .email-date.historical {
+            color: #666;
+        }
+        .email-sender {
+            color: #c30;
+            font-weight: normal;
+        }
+        .email-subject {
+            color: #000;
+        }
+        .historical-marker {
+            color: #999;
+            font-size: 0.85em;
+            font-style: italic;
+        }
+        .new-marker {
+            color: #0066cc;
+            font-size: 0.85em;
+            font-weight: bold;
+        }
+        .archive-link {
+            display: inline-block;
+            margin: 15px 0;
+            padding: 10px 20px;
+            background: #333;
+            color: #fff;
+            text-decoration: none;
+            border: 2px solid #000;
+            font-weight: bold;
+            transition: all 0.2s;
+        }
+        .archive-link:hover {
+            background: #000;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>KVMARM Mailing List Analysis Report</h1>
+
+        <div class="meta-info">
+            <p><strong>Generated:</strong> 2026-10-12 04:34</p>
+            <p><strong>Time Period:</strong> 2026年10月 第41周 (10/05 - 10/11)</p>
+            <p><strong>Total Messages:</strong> 366 | <strong>Total Threads:</strong> 35</p>
+            <p style="text-align: center;"><a href="archive.html" class="archive-link">📚 历史归档 Archive</a></p>
+        </div>
+
+
+        <div class="category">
+            <h2>PATCH</h2>
+
+            <div class="thread">
+                <div class="thread-header">
+                    <h3>[PATCH v5 00/38] mm: make VMA flag semantics explicit, eliminate
+ VM_SPECIAL</h3>
+                </div>
+
+                <div class="thread-meta">
+                    <span>78 messages</span>
+                    <span>3 participants</span>
+                    <span>Started: 2026-10-09</span>
+                </div>
+
+                <div class="ai-summary">
+                    [AI 总结失败: Error code: 429 - {'error': {'message': 'You have no credits remaining. Add credits to continue using the API at https://platform.openai.com/settings/organization/billing/.', 'type': 'insufficient_quota', 'param': None, 'code': 'credit_balance_exhausted'}}]<br>策略: 完整 thread (历史:0 新:78, 60378 tokens)
+                </div>
+
+                <h4>Message List</h4>
+                <div class="email-list">
+<div class="email-item new"><span class="new-marker">[本周]</span> <span class="email-date">[2026-10-09]</span> <span class="email-subject">[PATCH v5 00/38] mm: make VMA flag semantics explicit, eliminate
+ VM_SPECIAL</span><br>&nbsp;&nbsp;&nbsp;&nbsp;Author: Lorenzo Stoakes (ARM) <span class="email-sender">&lt;ljs@kernel.org&gt;</span></div>
+<div class="email-item new"><span class="new-marker">[本周]</span> <span class="email-date">[2026-10-09]</span> <span class="email-subject">[PATCH v5 01/38] mm/vma: fix mmap_prepare file handling, remove
+ file_doesnt_need_get</span><br>&nbsp;&nbsp;&nbsp;&nbsp;Author: Lorenzo Stoakes (ARM) <span class="email-sender">&lt;ljs@kernel.org&gt;</span></div>
+<div class="email-item new"><span class="new-marker">[本周]</span> <span class="email-date">[2026-10-09]</span> <span class="email-subject">[PATCH v5 02/38] mm/vma: introduce and use vma_[flags_]can_merge()</span><br>&nbsp;&nbsp;&nbsp;&nbsp;Author: Lorenzo Stoakes (ARM) <span class="email-sender">&lt;ljs@kernel.org&gt;</span></div>
+<div class="email-item new"><span class="new-marker">[本周]</span> <span class="email-date">[2026-10-09]</span> <span class="email-subject">[PATCH v5 03/38] mm: consistently validate VMA state after
+ mmap[_prepare] hooks</span><br>&nbsp;&nbsp;&nbsp;&nbsp;Author: Lorenzo Stoakes (ARM) <span class="email-sender">&lt;ljs@kernel.org&gt;</span></div>
+<div class="email-item new"><span class="new-marker">[本周]</span> <span class="email-date">[2026-10-09]</span> <span class="email-subject">[PATCH v5 04/38] mm/vma: ensure mmap_prepare doesn't set actions
+ on a mergeable vma</span><br>&nbsp;&nbsp;&nbsp;&nbsp;Author: Lorenzo Stoakes (ARM) <span class="email-sender">&lt;ljs@kernel.org&gt;</span></div>
+<div class="email-item new"><span class="new-marker">[本周]</span> <span class="email-date">[2026-10-09]</span> <span class="email-subject">[PATCH v5 05/38] mm: make map_kernel_pages_[prepare,complete]
+ internal and unexported</span><br>&nbsp;&nbsp;&nbsp;&nbsp;Author: Lorenzo Stoakes (ARM) <span class="email-sender">&lt;ljs@kernel.org&gt;</span></div>
+<div class="email-item new"><span class="new-marker">[本周]</span> <span class="email-date">[2026-10-09]</span> <span class="email-subject">[PATCH v5 06/38] mm/vma: tidy up map kernel pages enum values</span><br>&nbsp;&nbsp;&nbsp;&nbsp;Author: Lorenzo Stoakes (ARM) <span class="email-sender">&lt;ljs@kernel.org&gt;</span></div>
+<div class="email-item new"><span class="new-marker">[本周]</span> <span class="email-date">[2026-10-09]</span> <span class="email-subject">[PATCH v5 07/38] mm: add mmap action for discontiguous kernel page
+ mapping</span><br>&nbsp;&nbsp;&nbsp;&nbsp;Author: Lorenzo Stoakes (ARM) <span class="email-sender">&lt;ljs@kernel.org&gt;</span></div>
+<div class="email-item new"><span class="new-marker">[本周]</span> <span class="email-date">[2026-10-09]</span> <span class="email-subject">[PATCH v5 08/38] docs: filesystems: update mmap_prepare docs for
+ discontig kernel pgs</span><br>&nbsp;&nbsp;&nbsp;&nbsp;Author: Lorenzo Stoakes (ARM) <span class="email-sender">&lt;ljs@kernel.org&gt;</span></div>
+<div class="email-item new"><span class="new-marker">[本周]</span> <span class="email-date">[2026-10-09]</span> <span class="email-subject">[PATCH v5 09/38] drivers/usb/mon: update to use mmap_prepare + map
+ kernel pages</span><br>&nbsp;&nbsp;&nbsp;&nbsp;Author: Lorenzo Stoakes (ARM) <span class="email-sender">&lt;ljs@kernel.org&gt;</span></div>
+<div class="email-item new"><span class="new-marker">[本周]</span> <span class="email-date">[2026-10-09]</span> <span class="email-subject">[PATCH v5 10/38] infiniband: update hfi1 to use
+ remap_vmalloc_range()</span><br>&nbsp;&nbsp;&nbsp;&nbsp;Author: Lorenzo Stoakes (ARM) <span class="email-sender">&lt;ljs@kernel.org&gt;</span></div>
+<div class="email-item new"><span class="new-marker">[本周]</span> <span class="email-date">[2026-10-09]</span> <span class="email-subject">[PATCH v5 11/38] selinux: reject writable opens of policy file,
+ drop mmap shared/write check</span><br>&nbsp;&nbsp;&nbsp;&nbsp;Author: Lorenzo Stoakes (ARM) <span class="email-sender">&lt;ljs@kernel.org&gt;</span></div>
+<div class="email-item new"><span class="new-marker">[本周]</span> <span class="email-date">[2026-10-09]</span> <span class="email-subject">[PATCH v5 12/38] ALSA: pcm: use vm_insert_page() to map PCM status
+ page</span><br>&nbsp;&nbsp;&nbsp;&nbsp;Author: Lorenzo Stoakes (ARM) <span class="email-sender">&lt;ljs@kernel.org&gt;</span></div>
+<div class="email-item new"><span class="new-marker">[本周]</span> <span class="email-date">[2026-10-09]</span> <span class="email-subject">[PATCH v5 13/38] bpf: arena: mark arena_map_mmap() mappings
+ VM_MIXEDMAP</span><br>&nbsp;&nbsp;&nbsp;&nbsp;Author: Lorenzo Stoakes (ARM) <span class="email-sender">&lt;ljs@kernel.org&gt;</span></div>
+<div class="email-item new"><span class="new-marker">[本周]</span> <span class="email-date">[2026-10-09]</span> <span class="email-subject">[PATCH v5 14/38] mm/vma: add vma[_flags]_is_mm_managed()
+ predicates</span><br>&nbsp;&nbsp;&nbsp;&nbsp;Author: Lorenzo Stoakes (ARM) <span class="email-sender">&lt;ljs@kernel.org&gt;</span></div>
+<div class="email-item new"><span class="new-marker">[本周]</span> <span class="email-date">[2026-10-09]</span> <span class="email-subject">[PATCH v5 15/38] mm/vma: only allow mmap to clear VMA_MAYWRITE_BIT
+ if not mm-managed</span><br>&nbsp;&nbsp;&nbsp;&nbsp;Author: Lorenzo Stoakes (ARM) <span class="email-sender">&lt;ljs@kernel.org&gt;</span></div>
+<div class="email-item new"><span class="new-marker">[本周]</span> <span class="email-date">[2026-10-09]</span> <span class="email-subject">[PATCH v5 16/38] mm/vma: add and use vma_[flags]_is_fixed_mapping</span><br>&nbsp;&nbsp;&nbsp;&nbsp;Author: Lorenzo Stoakes (ARM) <span class="email-sender">&lt;ljs@kernel.org&gt;</span></div>
+<div class="email-item new"><span class="new-marker">[本周]</span> <span class="email-date">[2026-10-09]</span> <span class="email-subject">[PATCH v5 17/38] scsi: sg: convert mmap hook to mmap_prepare and
+ rework</span><br>&nbsp;&nbsp;&nbsp;&nbsp;Author: Lorenzo Stoakes (ARM) <span class="email-sender">&lt;ljs@kernel.org&gt;</span></div>
+<div class="email-item new"><span class="new-marker">[本周]</span> <span class="email-date">[2026-10-09]</span> <span class="email-subject">[PATCH v5 18/38] fbdev: defio: assert FBINFO_VIRTFB, drop VM_IO,
+ add VM_MIXEDMAP</span><br>&nbsp;&nbsp;&nbsp;&nbsp;Author: Lorenzo Stoakes (ARM) <span class="email-sender">&lt;ljs@kernel.org&gt;</span></div>
+<div class="email-item new"><span class="new-marker">[本周]</span> <span class="email-date">[2026-10-09]</span> <span class="email-subject">[PATCH v5 19/38] HSI: cmt_speech: convert mmap hook to
+ mmap_prepare, refactor</span><br>&nbsp;&nbsp;&nbsp;&nbsp;Author: Lorenzo Stoakes (ARM) <span class="email-sender">&lt;ljs@kernel.org&gt;</span></div>
+<div class="email-item new"><span class="new-marker">[本周]</span> <span class="email-date">[2026-10-09]</span> <span class="email-subject">[PATCH v5 20/38] mm/gup: error out early on !VMA_MAYREAD_BIT VMAs</span><br>&nbsp;&nbsp;&nbsp;&nbsp;Author: Lorenzo Stoakes (ARM) <span class="email-sender">&lt;ljs@kernel.org&gt;</span></div>
+<div class="email-item new"><span class="new-marker">[本周]</span> <span class="email-date">[2026-10-09]</span> <span class="email-subject">[PATCH v5 21/38] uprobes: remove VM_IO, set VM_MIXEDMAP for mapped
+ kernel pages</span><br>&nbsp;&nbsp;&nbsp;&nbsp;Author: Lorenzo Stoakes (ARM) <span class="email-sender">&lt;ljs@kernel.org&gt;</span></div>
+<div class="email-item new"><span class="new-marker">[本周]</span> <span class="email-date">[2026-10-09]</span> <span class="email-subject">[PATCH v5 22/38] mm/mlock: clear VMA_LOCKED_MASK over mmap
+ callback</span><br>&nbsp;&nbsp;&nbsp;&nbsp;Author: Lorenzo Stoakes (ARM) <span class="email-sender">&lt;ljs@kernel.org&gt;</span></div>
+<div class="email-item new"><span class="new-marker">[本周]</span> <span class="email-date">[2026-10-09]</span> <span class="email-subject">[PATCH v5 23/38] mm/mlock: eliminate weird VMA_IO_BIT abuse and
+ simplify</span><br>&nbsp;&nbsp;&nbsp;&nbsp;Author: Lorenzo Stoakes (ARM) <span class="email-sender">&lt;ljs@kernel.org&gt;</span></div>
+<div class="email-item new"><span class="new-marker">[本周]</span> <span class="email-date">[2026-10-09]</span> <span class="email-subject">[PATCH v5 24/38] mm/vma: enforce that mm-managed mappings may not
+ set VMA_IO_BIT</span><br>&nbsp;&nbsp;&nbsp;&nbsp;Author: Lorenzo Stoakes (ARM) <span class="email-sender">&lt;ljs@kernel.org&gt;</span></div>
+<div class="email-item new"><span class="new-marker">[本周]</span> <span class="email-date">[2026-10-09]</span> <span class="email-subject">[PATCH v5 25/38] mm: remove VMA_IO_BIT check in
+ vma[_flags]_is_mm_managed()</span><br>&nbsp;&nbsp;&nbsp;&nbsp;Author: Lorenzo Stoakes (ARM) <span class="email-sender">&lt;ljs@kernel.org&gt;</span></div>
+<div class="email-item new"><span class="new-marker">[本周]</span> <span class="email-date">[2026-10-09]</span> <span class="email-subject">[PATCH v5 26/38] mm: remove hugetlb_inline.h</span><br>&nbsp;&nbsp;&nbsp;&nbsp;Author: Lorenzo Stoakes (ARM) <span class="email-sender">&lt;ljs@kernel.org&gt;</span></div>
+<div class="email-item new"><span class="new-marker">[本周]</span> <span class="email-date">[2026-10-09]</span> <span class="email-subject">[PATCH v5 27/38] mm: rename is_vm_hugetlb_page() to
+ vma_is_hugetlb()</span><br>&nbsp;&nbsp;&nbsp;&nbsp;Author: Lorenzo Stoakes (ARM) <span class="email-sender">&lt;ljs@kernel.org&gt;</span></div>
+<div class="email-item new"><span class="new-marker">[本周]</span> <span class="email-date">[2026-10-09]</span> <span class="email-subject">[PATCH v5 28/38] mm: drop some redundant checks around hugetlb
+ VMAs</span><br>&nbsp;&nbsp;&nbsp;&nbsp;Author: Lorenzo Stoakes (ARM) <span class="email-sender">&lt;ljs@kernel.org&gt;</span></div>
+<div class="email-item new"><span class="new-marker">[本周]</span> <span class="email-date">[2026-10-09]</span> <span class="email-subject">[PATCH v5 29/38] mm/madvise: update is_valid_guard_vma() to use
+ vma_can_merge()</span><br>&nbsp;&nbsp;&nbsp;&nbsp;Author: Lorenzo Stoakes (ARM) <span class="email-sender">&lt;ljs@kernel.org&gt;</span></div>
+<div class="email-item new"><span class="new-marker">[本周]</span> <span class="email-date">[2026-10-09]</span> <span class="email-subject">[PATCH v5 30/38] mm/vma: introduce vma[_flags]_is_mm_backed()</span><br>&nbsp;&nbsp;&nbsp;&nbsp;Author: Lorenzo Stoakes (ARM) <span class="email-sender">&lt;ljs@kernel.org&gt;</span></div>
+<div class="email-item new"><span class="new-marker">[本周]</span> <span class="email-date">[2026-10-09]</span> <span class="email-subject">[PATCH v5 31/38] mm/uffd: use predicates for userfaultfd checks</span><br>&nbsp;&nbsp;&nbsp;&nbsp;Author: Lorenzo Stoakes (ARM) <span class="email-sender">&lt;ljs@kernel.org&gt;</span></div>
+<div class="email-item new"><span class="new-marker">[本周]</span> <span class="email-date">[2026-10-09]</span> <span class="email-subject">[PATCH v5 32/38] mm/madvise: use predicates for madvise(...,
+ MADV_DOFORK)</span><br>&nbsp;&nbsp;&nbsp;&nbsp;Author: Lorenzo Stoakes (ARM) <span class="email-sender">&lt;ljs@kernel.org&gt;</span></div>
+<div class="email-item new"><span class="new-marker">[本周]</span> <span class="email-date">[2026-10-09]</span> <span class="email-subject">[PATCH v5 33/38] mm: eliminate VMA_SPECIAL_FLAGS usage when
+ hugetlb explicitly tested</span><br>&nbsp;&nbsp;&nbsp;&nbsp;Author: Lorenzo Stoakes (ARM) <span class="email-sender">&lt;ljs@kernel.org&gt;</span></div>
+<div class="email-item new"><span class="new-marker">[本周]</span> <span class="email-date">[2026-10-09]</span> <span class="email-subject">[PATCH v5 34/38] mm: eliminate VMA_SPECIAL_FLAGS check in
+ lru_gen_look_around()</span><br>&nbsp;&nbsp;&nbsp;&nbsp;Author: Lorenzo Stoakes (ARM) <span class="email-sender">&lt;ljs@kernel.org&gt;</span></div>
+<div class="email-item new"><span class="new-marker">[本周]</span> <span class="email-date">[2026-10-09]</span> <span class="email-subject">[PATCH v5 35/38] mm: avoid use of VMA_SPECIAL_FLAGS in
+ migrate_vma_setup()</span><br>&nbsp;&nbsp;&nbsp;&nbsp;Author: Lorenzo Stoakes (ARM) <span class="email-sender">&lt;ljs@kernel.org&gt;</span></div>
+<div class="email-item new"><span class="new-marker">[本周]</span> <span class="email-date">[2026-10-09]</span> <span class="email-subject">[PATCH v5 36/38] mm: eliminate VM_SPECIAL, VMA_SPECIAL_FLAGS</span><br>&nbsp;&nbsp;&nbsp;&nbsp;Author: Lorenzo Stoakes (ARM) <span class="email-sender">&lt;ljs@kernel.org&gt;</span></div>
+<div class="email-item new"><span class="new-marker">[本周]</span> <span class="email-date">[2026-10-09]</span> <span class="email-subject">[PATCH v5 37/38] fuse: dax: do not set VM_MIXEDMAP</span><br>&nbsp;&nbsp;&nbsp;&nbsp;Author: Lorenzo Stoakes (ARM) <span class="email-sender">&lt;ljs@kernel.org&gt;</span></div>
+<div class="email-item new"><span class="new-marker">[本周]</span> <span class="email-date">[2026-10-09]</span> <span class="email-subject">[PATCH v5 38/38] mm/huge_memory: remove vma_is_special_huge()</span><br>&nbsp;&nbsp;&nbsp;&nbsp;Author: Lorenzo Stoakes (ARM) <span class="email-sender">&lt;ljs@kernel.org&gt;</span></div>
+<div class="email-item new"><span class="new-marker">[本周]</span> <span class="email-date">[2026-10-09]</span> <span class="email-subject">Re: [PATCH v5 08/38] docs: filesystems: update mmap_prepare docs
+ for discontig kernel pgs</span><br>&nbsp;&nbsp;&nbsp;&nbsp;Author: sashiko-bot@kernel.org <span class="email-sender">&lt;sashiko-bot@kernel.org&gt;</span></div>
+<div class="email-item new"><span class="new-marker">[本周]</span> <span class="email-date">[2026-10-09]</span> <span class="email-subject">Re: [PATCH v5 06/38] mm/vma: tidy up map kernel pages enum values</span><br>&nbsp;&nbsp;&nbsp;&nbsp;Author: sashiko-bot@kernel.org <span class="email-sender">&lt;sashiko-bot@kernel.org&gt;</span></div>
+<div class="email-item new"><span class="new-marker">[本周]</span> <span class="email-date">[2026-10-09]</span> <span class="email-subject">Re: [PATCH v5 05/38] mm: make map_kernel_pages_[prepare,complete]
+ internal and unexported</span><br>&nbsp;&nbsp;&nbsp;&nbsp;Author: sashiko-bot@kernel.org <span class="email-sender">&lt;sashiko-bot@kernel.org&gt;</span></div>
+<div class="email-item new"><span class="new-marker">[本周]</span> <span class="email-date">[2026-10-09]</span> <span class="email-subject">Re: [PATCH v5 02/38] mm/vma: introduce and use
+ vma_[flags_]can_merge()</span><br>&nbsp;&nbsp;&nbsp;&nbsp;Author: sashiko-bot@kernel.org <span class="email-sender">&lt;sashiko-bot@kernel.org&gt;</span></div>
+<div class="email-item new"><span class="new-marker">[本周]</span> <span class="email-date">[2026-10-09]</span> <span class="email-subject">Re: [PATCH v5 04/38] mm/vma: ensure mmap_prepare doesn't set
+ actions on a mergeable vma</span><br>&nbsp;&nbsp;&nbsp;&nbsp;Author: sashiko-bot@kernel.org <span class="email-sender">&lt;sashiko-bot@kernel.org&gt;</span></div>
+<div class="email-item new"><span class="new-marker">[本周]</span> <span class="email-date">[2026-10-09]</span> <span class="email-subject">Re: [PATCH v5 01/38] mm/vma: fix mmap_prepare file handling, remove
+ file_doesnt_need_get</span><br>&nbsp;&nbsp;&nbsp;&nbsp;Author: sashiko-bot@kernel.org <span class="email-sender">&lt;sashiko-bot@kernel.org&gt;</span></div>
+<div class="email-item new"><span class="new-marker">[本周]</span> <span class="email-date">[2026-10-09]</span> <span class="email-subject">Re: [PATCH v5 15/38] mm/vma: only allow mmap to clear
+ VMA_MAYWRITE_BIT if not mm-managed</span><br>&nbsp;&nbsp;&nbsp;&nbsp;Author: sashiko-bot@kernel.org <span class="email-sender">&lt;sashiko-bot@kernel.org&gt;</span></div>
+<div class="email-item new"><span class="new-marker">[本周]</span> <span class="email-date">[2026-10-09]</span> <span class="email-subject">Re: [PATCH v5 11/38] selinux: reject writable opens of policy file,
+ drop mmap shared/write check</span><br>&nbsp;&nbsp;&nbsp;&nbsp;Author: sashiko-bot@kernel.org <span class="email-sender">&lt;sashiko-bot@kernel.org&gt;</span></div>
+<div class="email-item new"><span class="new-marker">[本周]</span> <span class="email-date">[2026-10-09]</span> <span class="email-subject">Re: [PATCH v5 14/38] mm/vma: add vma[_flags]_is_mm_managed()
+ predicates</span><br>&nbsp;&nbsp;&nbsp;&nbsp;Author: sashiko-bot@kernel.org <span class="email-sender">&lt;sashiko-bot@kernel.org&gt;</span></div>
+<div class="email-item new"><span class="new-marker">[本周]</span> <span class="email-date">[2026-10-09]</span> <span class="email-subject">Re: [PATCH v5 07/38] mm: add mmap action for discontiguous kernel
+ page mapping</span><br>&nbsp;&nbsp;&nbsp;&nbsp;Author: sashiko-bot@kernel.org <span class="email-sender">&lt;sashiko-bot@kernel.org&gt;</span></div>
+<div class="email-item new"><span class="new-marker">[本周]</span> <span class="email-date">[2026-10-09]</span> <span class="email-subject">Re: [PATCH v5 16/38] mm/vma: add and use
+ vma_[flags]_is_fixed_mapping</span><br>&nbsp;&nbsp;&nbsp;&nbsp;Author: sashiko-bot@kernel.org <span class="email-sender">&lt;sashiko-bot@kernel.org&gt;</span></div>
+<div class="email-item new"><span class="new-marker">[本周]</span> <span class="email-date">[2026-10-09]</span> <span class="email-subject">Re: [PATCH v5 13/38] bpf: arena: mark arena_map_mmap() mappings
+ VM_MIXEDMAP</span><br>&nbsp;&nbsp;&nbsp;&nbsp;Author: sashiko-bot@kernel.org <span class="email-sender">&lt;sashiko-bot@kernel.org&gt;</span></div>
+<div class="email-item new"><span class="new-marker">[本周]</span> <span class="email-date">[2026-10-09]</span> <span class="email-subject">Re: [PATCH v5 10/38] infiniband: update hfi1 to use
+ remap_vmalloc_range()</span><br>&nbsp;&nbsp;&nbsp;&nbsp;Author: sashiko-bot@kernel.org <span class="email-sender">&lt;sashiko-bot@kernel.org&gt;</span></div>
+<div class="email-item new"><span class="new-marker">[本周]</span> <span class="email-date">[2026-10-09]</span> <span class="email-subject">Re: [PATCH v5 09/38] drivers/usb/mon: update to use mmap_prepare +
+ map kernel pages</span><br>&nbsp;&nbsp;&nbsp;&nbsp;Author: sashiko-bot@kernel.org <span class="email-sender">&lt;sashiko-bot@kernel.org&gt;</span></div>
+<div class="email-item new"><span class="new-marker">[本周]</span> <span class="email-date">[2026-10-09]</span> <span class="email-subject">Re: [PATCH v5 03/38] mm: consistently validate VMA state after
+ mmap[_prepare] hooks</span><br>&nbsp;&nbsp;&nbsp;&nbsp;Author: sashiko-bot@kernel.org <span class="email-sender">&lt;sashiko-bot@kernel.org&gt;</span></div>
+<div class="email-item new"><span class="new-marker">[本周]</span> <span class="email-date">[2026-10-09]</span> <span class="email-subject">Re: [PATCH v5 20/38] mm/gup: error out early on !VMA_MAYREAD_BIT
+ VMAs</span><br>&nbsp;&nbsp;&nbsp;&nbsp;Author: sashiko-bot@kernel.org <span class="email-sender">&lt;sashiko-bot@kernel.org&gt;</span></div>
+<div class="email-item new"><span class="new-marker">[本周]</span> <span class="email-date">[2026-10-09]</span> <span class="email-subject">Re: [PATCH v5 24/38] mm/vma: enforce that mm-managed mappings may
+ not set VMA_IO_BIT</span><br>&nbsp;&nbsp;&nbsp;&nbsp;Author: sashiko-bot@kernel.org <span class="email-sender">&lt;sashiko-bot@kernel.org&gt;</span></div>
+<div class="email-item new"><span class="new-marker">[本周]</span> <span class="email-date">[2026-10-09]</span> <span class="email-subject">Re: [PATCH v5 18/38] fbdev: defio: assert FBINFO_VIRTFB, drop
+ VM_IO, add VM_MIXEDMAP</span><br>&nbsp;&nbsp;&nbsp;&nbsp;Author: sashiko-bot@kernel.org <span class="email-sender">&lt;sashiko-bot@kernel.org&gt;</span></div>
+<div class="email-item new"><span class="new-marker">[本周]</span> <span class="email-date">[2026-10-09]</span> <span class="email-subject">Re: [PATCH v5 12/38] ALSA: pcm: use vm_insert_page() to map PCM
+ status page</span><br>&nbsp;&nbsp;&nbsp;&nbsp;Author: sashiko-bot@kernel.org <span class="email-sender">&lt;sashiko-bot@kernel.org&gt;</span></div>
+<div class="email-item new"><span class="new-marker">[本周]</span> <span class="email-date">[2026-10-09]</span> <span class="email-subject">Re: [PATCH v5 26/38] mm: remove hugetlb_inline.h</span><br>&nbsp;&nbsp;&nbsp;&nbsp;Author: sashiko-bot@kernel.org <span class="email-sender">&lt;sashiko-bot@kernel.org&gt;</span></div>
+<div class="email-item new"><span class="new-marker">[本周]</span> <span class="email-date">[2026-10-09]</span> <span class="email-subject">Re: [PATCH v5 19/38] HSI: cmt_speech: convert mmap hook to
+ mmap_prepare, refactor</span><br>&nbsp;&nbsp;&nbsp;&nbsp;Author: sashiko-bot@kernel.org <span class="email-sender">&lt;sashiko-bot@kernel.org&gt;</span></div>
+<div class="email-item new"><span class="new-marker">[本周]</span> <span class="email-date">[2026-10-09]</span> <span class="email-subject">Re: [PATCH v5 27/38] mm: rename is_vm_hugetlb_page() to
+ vma_is_hugetlb()</span><br>&nbsp;&nbsp;&nbsp;&nbsp;Author: sashiko-bot@kernel.org <span class="email-sender">&lt;sashiko-bot@kernel.org&gt;</span></div>
+<div class="email-item new"><span class="new-marker">[本周]</span> <span class="email-date">[2026-10-09]</span> <span class="email-subject">Re: [PATCH v5 22/38] mm/mlock: clear VMA_LOCKED_MASK over mmap
+ callback</span><br>&nbsp;&nbsp;&nbsp;&nbsp;Author: sashiko-bot@kernel.org <span class="email-sender">&lt;sashiko-bot@kernel.org&gt;</span></div>
+<div class="email-item new"><span class="new-marker">[本周]</span> <span class="email-date">[2026-10-09]</span> <span class="email-subject">Re: [PATCH v5 21/38] uprobes: remove VM_IO, set VM_MIXEDMAP for
+ mapped kernel pages</span><br>&nbsp;&nbsp;&nbsp;&nbsp;Author: sashiko-bot@kernel.org <span class="email-sender">&lt;sashiko-bot@kernel.org&gt;</span></div>
+<div class="email-item new"><span class="new-marker">[本周]</span> <span class="email-date">[2026-10-09]</span> <span class="email-subject">Re: [PATCH v5 25/38] mm: remove VMA_IO_BIT check in
+ vma[_flags]_is_mm_managed()</span><br>&nbsp;&nbsp;&nbsp;&nbsp;Author: sashiko-bot@kernel.org <span class="email-sender">&lt;sashiko-bot@kernel.org&gt;</span></div>
+<div class="email-item new"><span class="new-marker">[本周]</span> <span class="email-date">[2026-10-09]</span> <span class="email-subject">Re: [PATCH v5 28/38] mm: drop some redundant checks around hugetlb
+ VMAs</span><br>&nbsp;&nbsp;&nbsp;&nbsp;Author: sashiko-bot@kernel.org <span class="email-sender">&lt;sashiko-bot@kernel.org&gt;</span></div>
+<div class="email-item new"><span class="new-marker">[本周]</span> <span class="email-date">[2026-10-09]</span> <span class="email-subject">Re: [PATCH v5 29/38] mm/madvise: update is_valid_guard_vma() to use
+ vma_can_merge()</span><br>&nbsp;&nbsp;&nbsp;&nbsp;Author: sashiko-bot@kernel.org <span class="email-sender">&lt;sashiko-bot@kernel.org&gt;</span></div>
+<div class="email-item new"><span class="new-marker">[本周]</span> <span class="email-date">[2026-10-09]</span> <span class="email-subject">Re: [PATCH v5 17/38] scsi: sg: convert mmap hook to mmap_prepare
+ and rework</span><br>&nbsp;&nbsp;&nbsp;&nbsp;Author: sashiko-bot@kernel.org <span class="email-sender">&lt;sashiko-bot@kernel.org&gt;</span></div>
+<div class="email-item new"><span class="new-marker">[本周]</span> <span class="email-date">[2026-10-09]</span> <span class="email-subject">Re: [PATCH v5 31/38] mm/uffd: use predicates for userfaultfd checks</span><br>&nbsp;&nbsp;&nbsp;&nbsp;Author: sashiko-bot@kernel.org <span class="email-sender">&lt;sashiko-bot@kernel.org&gt;</span></div>
+<div class="email-item new"><span class="new-marker">[本周]</span> <span class="email-date">[2026-10-09]</span> <span class="email-subject">Re: [PATCH v5 32/38] mm/madvise: use predicates for madvise(...,
+ MADV_DOFORK)</span><br>&nbsp;&nbsp;&nbsp;&nbsp;Author: sashiko-bot@kernel.org <span class="email-sender">&lt;sashiko-bot@kernel.org&gt;</span></div>
+<div class="email-item new"><span class="new-marker">[本周]</span> <span class="email-date">[2026-10-09]</span> <span class="email-subject">Re: [PATCH v5 33/38] mm: eliminate VMA_SPECIAL_FLAGS usage when
+ hugetlb explicitly tested</span><br>&nbsp;&nbsp;&nbsp;&nbsp;Author: sashiko-bot@kernel.org <span class="email-sender">&lt;sashiko-bot@kernel.org&gt;</span></div>
+<div class="email-item new"><span class="new-marker">[本周]</span> <span class="email-date">[2026-10-09]</span> <span class="email-subject">Re: [PATCH v5 30/38] mm/vma: introduce vma[_flags]_is_mm_backed()</span><br>&nbsp;&nbsp;&nbsp;&nbsp;Author: sashiko-bot@kernel.org <span class="email-sender">&lt;sashiko-bot@kernel.org&gt;</span></div>
+<div class="email-item new"><span class="new-marker">[本周]</span> <span class="email-date">[2026-10-09]</span> <span class="email-subject">Re: [PATCH v5 36/38] mm: eliminate VM_SPECIAL, VMA_SPECIAL_FLAGS</span><br>&nbsp;&nbsp;&nbsp;&nbsp;Author: sashiko-bot@kernel.org <span class="email-sender">&lt;sashiko-bot@kernel.org&gt;</span></div>
+<div class="email-item new"><span class="new-marker">[本周]</span> <span class="email-date">[2026-10-09]</span> <span class="email-subject">Re: [PATCH v5 23/38] mm/mlock: eliminate weird VMA_IO_BIT abuse and
+ simplify</span><br>&nbsp;&nbsp;&nbsp;&nbsp;Author: sashiko-bot@kernel.org <span class="email-sender">&lt;sashiko-bot@kernel.org&gt;</span></div>
+<div class="email-item new"><span class="new-marker">[本周]</span> <span class="email-date">[2026-10-09]</span> <span class="email-subject">Re: [PATCH v5 34/38] mm: eliminate VMA_SPECIAL_FLAGS check in
+ lru_gen_look_around()</span><br>&nbsp;&nbsp;&nbsp;&nbsp;Author: sashiko-bot@kernel.org <span class="email-sender">&lt;sashiko-bot@kernel.org&gt;</span></div>
+<div class="email-item new"><span class="new-marker">[本周]</span> <span class="email-date">[2026-10-09]</span> <span class="email-subject">Re: [PATCH v5 35/38] mm: avoid use of VMA_SPECIAL_FLAGS in
+ migrate_vma_setup()</span><br>&nbsp;&nbsp;&nbsp;&nbsp;Author: sashiko-bot@kernel.org <span class="email-sender">&lt;sashiko-bot@kernel.org&gt;</span></div>
+<div class="email-item new"><span class="new-marker">[本周]</span> <span class="email-date">[2026-10-09]</span> <span class="email-subject">Re: [PATCH v5 38/38] mm/huge_memory: remove vma_is_special_huge()</span><br>&nbsp;&nbsp;&nbsp;&nbsp;Author: sashiko-bot@kernel.org <span class="email-sender">&lt;sashiko-bot@kernel.org&gt;</span></div>
+<div class="email-item new"><span class="new-marker">[本周]</span> <span class="email-date">[2026-10-09]</span> <span class="email-subject">Re: [PATCH v5 37/38] fuse: dax: do not set VM_MIXEDMAP</span><br>&nbsp;&nbsp;&nbsp;&nbsp;Author: sashiko-bot@kernel.org <span class="email-sender">&lt;sashiko-bot@kernel.org&gt;</span></div>
+<div class="email-item new"><span class="new-marker">[本周]</span> <span class="email-date">[2026-10-10]</span> <span class="email-subject">Re: [PATCH v5 00/38] mm: make VMA flag semantics explicit,
+ eliminate VM_SPECIAL</span><br>&nbsp;&nbsp;&nbsp;&nbsp;Author: Andrew Morton <span class="email-sender">&lt;akpm@linux-foundation.org&gt;</span></div>
+                </div>
+            </div>
+
+            <div class="thread">
+                <div class="thread-header">
+                    <h3>[PATCH v22 00/23] KVM: arm64: CCA: Add basic plumbing for Realms</h3>
+                </div>
+
+                <div class="thread-meta">
+                    <span>64 messages</span>
+                    <span>4 participants</span>
+                    <span>Started: 2026-10-05</span>
+                </div>
+
+                <div class="ai-summary">
+                    [AI 总结失败: Error code: 429 - {'error': {'message': 'You have no credits remaining. Add credits to continue using the API at https://platform.openai.com/settings/organization/billing/.', 'type': 'insufficient_quota', 'param': None, 'code': 'credit_balance_exhausted'}}]<br>策略: 完整 thread (历史:0 新:64, 34969 tokens)
+                </div>
+
+                <h4>Message List</h4>
+                <div class="email-list">
+<div class="email-item new"><span class="new-marker">[本周]</span> <span class="email-date">[2026-10-05]</span> <span class="email-subject">[PATCH v22 00/23] KVM: arm64: CCA: Add basic plumbing for Realms</span><br>&nbsp;&nbsp;&nbsp;&nbsp;Author: Suzuki K Poulose <span class="email-sender">&lt;suzuki.poulose@arm.com&gt;</span></div>
+<div class="email-item new"><span class="new-marker">[本周]</span> <span class="email-date">[2026-10-05]</span> <span class="email-subject">[PATCH v22 01/23] KVM: arm64: protected VM: Handle user writes to CNTVCT_EL0/CNTPCT_EL0</span><br>&nbsp;&nbsp;&nbsp;&nbsp;Author: Suzuki K Poulose <span class="email-sender">&lt;suzuki.poulose@arm.com&gt;</span></div>
+<div class="email-item new"><span class="new-marker">[本周]</span> <span class="email-date">[2026-10-05]</span> <span class="email-subject">[PATCH v22 02/23] KVM: arm64: Disable Steal time accounting for protected guests</span><br>&nbsp;&nbsp;&nbsp;&nbsp;Author: Suzuki K Poulose <span class="email-sender">&lt;suzuki.poulose@arm.com&gt;</span></div>
+<div class="email-item new"><span class="new-marker">[本周]</span> <span class="email-date">[2026-10-05]</span> <span class="email-subject">[PATCH v22 03/23] KVM: arm64: Include kvm_emulate.h in kvm/arm_psci.h</span><br>&nbsp;&nbsp;&nbsp;&nbsp;Author: Suzuki K Poulose <span class="email-sender">&lt;suzuki.poulose@arm.com&gt;</span></div>
+<div class="email-item new"><span class="new-marker">[本周]</span> <span class="email-date">[2026-10-05]</span> <span class="email-subject">[PATCH v22 04/23] KVM: arm64: Avoid including linux/kvm_host.h in kvm_pgtable.h</span><br>&nbsp;&nbsp;&nbsp;&nbsp;Author: Suzuki K Poulose <span class="email-sender">&lt;suzuki.poulose@arm.com&gt;</span></div>
+<div class="email-item new"><span class="new-marker">[本周]</span> <span class="email-date">[2026-10-05]</span> <span class="email-subject">[PATCH v22 05/23] KVM: arm64: Track the type of VM in kvm_arch</span><br>&nbsp;&nbsp;&nbsp;&nbsp;Author: Suzuki K Poulose <span class="email-sender">&lt;suzuki.poulose@arm.com&gt;</span></div>
+<div class="email-item new"><span class="new-marker">[本周]</span> <span class="email-date">[2026-10-05]</span> <span class="email-subject">[PATCH v22 06/23] KVM: arm64: Don't call vcpu_set_pauth_traps for pKVM host</span><br>&nbsp;&nbsp;&nbsp;&nbsp;Author: Suzuki K Poulose <span class="email-sender">&lt;suzuki.poulose@arm.com&gt;</span></div>
+<div class="email-item new"><span class="new-marker">[本周]</span> <span class="email-date">[2026-10-05]</span> <span class="email-subject">[PATCH v22 07/23] KVM: arm64: Refactor the vcpu_load to allow for VM specific callbacks</span><br>&nbsp;&nbsp;&nbsp;&nbsp;Author: Suzuki K Poulose <span class="email-sender">&lt;suzuki.poulose@arm.com&gt;</span></div>
+<div class="email-item new"><span class="new-marker">[本周]</span> <span class="email-date">[2026-10-05]</span> <span class="email-subject">[PATCH v22 08/23] KVM: arm64: Add vcpu load/put call backs for flavors</span><br>&nbsp;&nbsp;&nbsp;&nbsp;Author: Suzuki K Poulose <span class="email-sender">&lt;suzuki.poulose@arm.com&gt;</span></div>
+<div class="email-item new"><span class="new-marker">[本周]</span> <span class="email-date">[2026-10-05]</span> <span class="email-subject">[PATCH v22 09/23] KVM: arm64: Prevent unsupported vcpu features for VM types</span><br>&nbsp;&nbsp;&nbsp;&nbsp;Author: Suzuki K Poulose <span class="email-sender">&lt;suzuki.poulose@arm.com&gt;</span></div>
+<div class="email-item new"><span class="new-marker">[本周]</span> <span class="email-date">[2026-10-05]</span> <span class="email-subject">[PATCH v22 10/23] KVM: arm64: Consolidate stage2 unmap range into kvm_stage2_unmap_range</span><br>&nbsp;&nbsp;&nbsp;&nbsp;Author: Suzuki K Poulose <span class="email-sender">&lt;suzuki.poulose@arm.com&gt;</span></div>
+<div class="email-item new"><span class="new-marker">[本周]</span> <span class="email-date">[2026-10-05]</span> <span class="email-subject">[PATCH v22 11/23] KVM: arm64: Add VM specific callback for S2 MMU operations</span><br>&nbsp;&nbsp;&nbsp;&nbsp;Author: Suzuki K Poulose <span class="email-sender">&lt;suzuki.poulose@arm.com&gt;</span></div>
+<div class="email-item new"><span class="new-marker">[本周]</span> <span class="email-date">[2026-10-05]</span> <span class="email-subject">[PATCH v22 12/23] KVM: arm64: Use a local kvm pointer in kvm_handle_guest_abort()</span><br>&nbsp;&nbsp;&nbsp;&nbsp;Author: Suzuki K Poulose <span class="email-sender">&lt;suzuki.poulose@arm.com&gt;</span></div>
+<div class="email-item new"><span class="new-marker">[本周]</span> <span class="email-date">[2026-10-05]</span> <span class="email-subject">[PATCH v22 13/23] KVM: arm64: Abstract out memory abort handling</span><br>&nbsp;&nbsp;&nbsp;&nbsp;Author: Suzuki K Poulose <span class="email-sender">&lt;suzuki.poulose@arm.com&gt;</span></div>
+<div class="email-item new"><span class="new-marker">[本周]</span> <span class="email-date">[2026-10-05]</span> <span class="email-subject">[PATCH v22 14/23] KVM: arm64: Mandate VGIC v3 for pKVM VMs and Realms</span><br>&nbsp;&nbsp;&nbsp;&nbsp;Author: Suzuki K Poulose <span class="email-sender">&lt;suzuki.poulose@arm.com&gt;</span></div>
+<div class="email-item new"><span class="new-marker">[本周]</span> <span class="email-date">[2026-10-05]</span> <span class="email-subject">[PATCH v22 15/23] KVM: arm64: CCA: Add a new mode for supporting Realm guests</span><br>&nbsp;&nbsp;&nbsp;&nbsp;Author: Suzuki K Poulose <span class="email-sender">&lt;suzuki.poulose@arm.com&gt;</span></div>
+<div class="email-item new"><span class="new-marker">[本周]</span> <span class="email-date">[2026-10-05]</span> <span class="email-subject">[PATCH v22 16/23] KVM: arm64: CCA: Add VCPU load/put for Realms</span><br>&nbsp;&nbsp;&nbsp;&nbsp;Author: Suzuki K Poulose <span class="email-sender">&lt;suzuki.poulose@arm.com&gt;</span></div>
+<div class="email-item new"><span class="new-marker">[本周]</span> <span class="email-date">[2026-10-05]</span> <span class="email-subject">[PATCH v22 17/23] KVM: arm64: CCA: Add bare minimal S2 operations for Realm</span><br>&nbsp;&nbsp;&nbsp;&nbsp;Author: Suzuki K Poulose <span class="email-sender">&lt;suzuki.poulose@arm.com&gt;</span></div>
+<div class="email-item new"><span class="new-marker">[本周]</span> <span class="email-date">[2026-10-05]</span> <span class="email-subject">[PATCH v22 18/23] KVM: arm64: CCA: Introduce Realms</span><br>&nbsp;&nbsp;&nbsp;&nbsp;Author: Suzuki K Poulose <span class="email-sender">&lt;suzuki.poulose@arm.com&gt;</span></div>
+<div class="email-item new"><span class="new-marker">[本周]</span> <span class="email-date">[2026-10-05]</span> <span class="email-subject">[PATCH v22 19/23] KVM: arm64: CCA: Don't expose unsupported capabilities for realm guests</span><br>&nbsp;&nbsp;&nbsp;&nbsp;Author: Suzuki K Poulose <span class="email-sender">&lt;suzuki.poulose@arm.com&gt;</span></div>
+<div class="email-item new"><span class="new-marker">[本周]</span> <span class="email-date">[2026-10-05]</span> <span class="email-subject">[PATCH v22 20/23] KVM: arm64: CCA: WARN on injected undef exceptions</span><br>&nbsp;&nbsp;&nbsp;&nbsp;Author: Suzuki K Poulose <span class="email-sender">&lt;suzuki.poulose@arm.com&gt;</span></div>
+<div class="email-item new"><span class="new-marker">[本周]</span> <span class="email-date">[2026-10-05]</span> <span class="email-subject">[PATCH v22 21/23] KVM: arm64: CCA: Support timers in realm RECs</span><br>&nbsp;&nbsp;&nbsp;&nbsp;Author: Suzuki K Poulose <span class="email-sender">&lt;suzuki.poulose@arm.com&gt;</span></div>
+<div class="email-item new"><span class="new-marker">[本周]</span> <span class="email-date">[2026-10-05]</span> <span class="email-subject">[PATCH v22 22/23] KVM: arm64: CCA: Expose SVE VL register before VCPU finalization</span><br>&nbsp;&nbsp;&nbsp;&nbsp;Author: Suzuki K Poulose <span class="email-sender">&lt;suzuki.poulose@arm.com&gt;</span></div>
+<div class="email-item new"><span class="new-marker">[本周]</span> <span class="email-date">[2026-10-05]</span> <span class="email-subject">[PATCH v22 23/23] KVM: arm64: CCA: Control user register access for Realms</span><br>&nbsp;&nbsp;&nbsp;&nbsp;Author: Suzuki K Poulose <span class="email-sender">&lt;suzuki.poulose@arm.com&gt;</span></div>
+<div class="email-item new"><span class="new-marker">[本周]</span> <span class="email-date">[2026-10-05]</span> <span class="email-subject">Re: [PATCH v22 23/23] KVM: arm64: CCA: Control user register access
+ for Realms</span><br>&nbsp;&nbsp;&nbsp;&nbsp;Author: sashiko-bot@kernel.org <span class="email-sender">&lt;sashiko-bot@kernel.org&gt;</span></div>
+<div class="email-item new"><span class="new-marker">[本周]</span> <span class="email-date">[2026-10-05]</span> <span class="email-subject">Re: [PATCH v22 23/23] KVM: arm64: CCA: Control user register access
+ for Realms</span><br>&nbsp;&nbsp;&nbsp;&nbsp;Author: Suzuki K Poulose <span class="email-sender">&lt;suzuki.poulose@arm.com&gt;</span></div>
+<div class="email-item new"><span class="new-marker">[本周]</span> <span class="email-date">[2026-10-06]</span> <span class="email-subject">Re: [PATCH v22 01/23] KVM: arm64: protected VM: Handle user writes to
+ CNTVCT_EL0/CNTPCT_EL0</span><br>&nbsp;&nbsp;&nbsp;&nbsp;Author: Gavin Shan <span class="email-sender">&lt;gshan@redhat.com&gt;</span></div>
+<div class="email-item new"><span class="new-marker">[本周]</span> <span class="email-date">[2026-10-06]</span> <span class="email-subject">Re: [PATCH v22 02/23] KVM: arm64: Disable Steal time accounting for
+ protected guests</span><br>&nbsp;&nbsp;&nbsp;&nbsp;Author: Gavin Shan <span class="email-sender">&lt;gshan@redhat.com&gt;</span></div>
+<div class="email-item new"><span class="new-marker">[本周]</span> <span class="email-date">[2026-10-06]</span> <span class="email-subject">Re: [PATCH v22 06/23] KVM: arm64: Don't call vcpu_set_pauth_traps for
+ pKVM host</span><br>&nbsp;&nbsp;&nbsp;&nbsp;Author: Gavin Shan <span class="email-sender">&lt;gshan@redhat.com&gt;</span></div>
+<div class="email-item new"><span class="new-marker">[本周]</span> <span class="email-date">[2026-10-06]</span> <span class="email-subject">Re: [PATCH v22 08/23] KVM: arm64: Add vcpu load/put call backs for
+ flavors</span><br>&nbsp;&nbsp;&nbsp;&nbsp;Author: Gavin Shan <span class="email-sender">&lt;gshan@redhat.com&gt;</span></div>
+<div class="email-item new"><span class="new-marker">[本周]</span> <span class="email-date">[2026-10-06]</span> <span class="email-subject">Re: [PATCH v22 09/23] KVM: arm64: Prevent unsupported vcpu features
+ for VM types</span><br>&nbsp;&nbsp;&nbsp;&nbsp;Author: Gavin Shan <span class="email-sender">&lt;gshan@redhat.com&gt;</span></div>
+<div class="email-item new"><span class="new-marker">[本周]</span> <span class="email-date">[2026-10-06]</span> <span class="email-subject">Re: [PATCH v22 09/23] KVM: arm64: Prevent unsupported vcpu features
+ for VM types</span><br>&nbsp;&nbsp;&nbsp;&nbsp;Author: Gavin Shan <span class="email-sender">&lt;gshan@redhat.com&gt;</span></div>
+<div class="email-item new"><span class="new-marker">[本周]</span> <span class="email-date">[2026-10-06]</span> <span class="email-subject">Re: [PATCH v22 10/23] KVM: arm64: Consolidate stage2 unmap range into
+ kvm_stage2_unmap_range</span><br>&nbsp;&nbsp;&nbsp;&nbsp;Author: Gavin Shan <span class="email-sender">&lt;gshan@redhat.com&gt;</span></div>
+<div class="email-item new"><span class="new-marker">[本周]</span> <span class="email-date">[2026-10-06]</span> <span class="email-subject">Re: [PATCH v22 11/23] KVM: arm64: Add VM specific callback for S2 MMU
+ operations</span><br>&nbsp;&nbsp;&nbsp;&nbsp;Author: Gavin Shan <span class="email-sender">&lt;gshan@redhat.com&gt;</span></div>
+<div class="email-item new"><span class="new-marker">[本周]</span> <span class="email-date">[2026-10-06]</span> <span class="email-subject">Re: [PATCH v22 12/23] KVM: arm64: Use a local kvm pointer in
+ kvm_handle_guest_abort()</span><br>&nbsp;&nbsp;&nbsp;&nbsp;Author: Gavin Shan <span class="email-sender">&lt;gshan@redhat.com&gt;</span></div>
+<div class="email-item new"><span class="new-marker">[本周]</span> <span class="email-date">[2026-10-06]</span> <span class="email-subject">Re: [PATCH v22 13/23] KVM: arm64: Abstract out memory abort handling</span><br>&nbsp;&nbsp;&nbsp;&nbsp;Author: Gavin Shan <span class="email-sender">&lt;gshan@redhat.com&gt;</span></div>
+<div class="email-item new"><span class="new-marker">[本周]</span> <span class="email-date">[2026-10-06]</span> <span class="email-subject">Re: [PATCH v22 14/23] KVM: arm64: Mandate VGIC v3 for pKVM VMs and
+ Realms</span><br>&nbsp;&nbsp;&nbsp;&nbsp;Author: Gavin Shan <span class="email-sender">&lt;gshan@redhat.com&gt;</span></div>
+<div class="email-item new"><span class="new-marker">[本周]</span> <span class="email-date">[2026-10-06]</span> <span class="email-subject">Re: [PATCH v22 15/23] KVM: arm64: CCA: Add a new mode for supporting
+ Realm guests</span><br>&nbsp;&nbsp;&nbsp;&nbsp;Author: Gavin Shan <span class="email-sender">&lt;gshan@redhat.com&gt;</span></div>
+<div class="email-item new"><span class="new-marker">[本周]</span> <span class="email-date">[2026-10-06]</span> <span class="email-subject">Re: [PATCH v22 16/23] KVM: arm64: CCA: Add VCPU load/put for Realms</span><br>&nbsp;&nbsp;&nbsp;&nbsp;Author: Gavin Shan <span class="email-sender">&lt;gshan@redhat.com&gt;</span></div>
+<div class="email-item new"><span class="new-marker">[本周]</span> <span class="email-date">[2026-10-06]</span> <span class="email-subject">Re: [PATCH v22 17/23] KVM: arm64: CCA: Add bare minimal S2 operations
+ for Realm</span><br>&nbsp;&nbsp;&nbsp;&nbsp;Author: Gavin Shan <span class="email-sender">&lt;gshan@redhat.com&gt;</span></div>
+<div class="email-item new"><span class="new-marker">[本周]</span> <span class="email-date">[2026-10-06]</span> <span class="email-subject">Re: [PATCH v22 18/23] KVM: arm64: CCA: Introduce Realms</span><br>&nbsp;&nbsp;&nbsp;&nbsp;Author: Gavin Shan <span class="email-sender">&lt;gshan@redhat.com&gt;</span></div>
+<div class="email-item new"><span class="new-marker">[本周]</span> <span class="email-date">[2026-10-06]</span> <span class="email-subject">Re: [PATCH v22 20/23] KVM: arm64: CCA: WARN on injected undef
+ exceptions</span><br>&nbsp;&nbsp;&nbsp;&nbsp;Author: Gavin Shan <span class="email-sender">&lt;gshan@redhat.com&gt;</span></div>
+<div class="email-item new"><span class="new-marker">[本周]</span> <span class="email-date">[2026-10-06]</span> <span class="email-subject">Re: [PATCH v22 05/23] KVM: arm64: Track the type of VM in kvm_arch</span><br>&nbsp;&nbsp;&nbsp;&nbsp;Author: Gavin Shan <span class="email-sender">&lt;gshan@redhat.com&gt;</span></div>
+<div class="email-item new"><span class="new-marker">[本周]</span> <span class="email-date">[2026-10-06]</span> <span class="email-subject">Re: [PATCH v22 19/23] KVM: arm64: CCA: Don't expose unsupported
+ capabilities for realm guests</span><br>&nbsp;&nbsp;&nbsp;&nbsp;Author: Gavin Shan <span class="email-sender">&lt;gshan@redhat.com&gt;</span></div>
+<div class="email-item new"><span class="new-marker">[本周]</span> <span class="email-date">[2026-10-06]</span> <span class="email-subject">Re: [PATCH v22 16/23] KVM: arm64: CCA: Add VCPU load/put for Realms</span><br>&nbsp;&nbsp;&nbsp;&nbsp;Author: Suzuki K Poulose <span class="email-sender">&lt;suzuki.poulose@arm.com&gt;</span></div>
+<div class="email-item new"><span class="new-marker">[本周]</span> <span class="email-date">[2026-10-06]</span> <span class="email-subject">Re: [PATCH v22 18/23] KVM: arm64: CCA: Introduce Realms</span><br>&nbsp;&nbsp;&nbsp;&nbsp;Author: Suzuki K Poulose <span class="email-sender">&lt;suzuki.poulose@arm.com&gt;</span></div>
+<div class="email-item new"><span class="new-marker">[本周]</span> <span class="email-date">[2026-10-06]</span> <span class="email-subject">Re: [PATCH v22 09/23] KVM: arm64: Prevent unsupported vcpu features
+ for VM types</span><br>&nbsp;&nbsp;&nbsp;&nbsp;Author: Suzuki K Poulose <span class="email-sender">&lt;suzuki.poulose@arm.com&gt;</span></div>
+<div class="email-item new"><span class="new-marker">[本周]</span> <span class="email-date">[2026-10-06]</span> <span class="email-subject">Re: [PATCH v22 11/23] KVM: arm64: Add VM specific callback for S2 MMU
+ operations</span><br>&nbsp;&nbsp;&nbsp;&nbsp;Author: Suzuki K Poulose <span class="email-sender">&lt;suzuki.poulose@arm.com&gt;</span></div>
+<div class="email-item new"><span class="new-marker">[本周]</span> <span class="email-date">[2026-10-06]</span> <span class="email-subject">Re: [PATCH v22 13/23] KVM: arm64: Abstract out memory abort handling</span><br>&nbsp;&nbsp;&nbsp;&nbsp;Author: Suzuki K Poulose <span class="email-sender">&lt;suzuki.poulose@arm.com&gt;</span></div>
+<div class="email-item new"><span class="new-marker">[本周]</span> <span class="email-date">[2026-10-06]</span> <span class="email-subject">Re: [PATCH v22 22/23] KVM: arm64: CCA: Expose SVE VL register before
+ VCPU finalization</span><br>&nbsp;&nbsp;&nbsp;&nbsp;Author: Gavin Shan <span class="email-sender">&lt;gshan@redhat.com&gt;</span></div>
+<div class="email-item new"><span class="new-marker">[本周]</span> <span class="email-date">[2026-10-06]</span> <span class="email-subject">Re: [PATCH v22 21/23] KVM: arm64: CCA: Support timers in realm RECs</span><br>&nbsp;&nbsp;&nbsp;&nbsp;Author: Gavin Shan <span class="email-sender">&lt;gshan@redhat.com&gt;</span></div>
+<div class="email-item new"><span class="new-marker">[本周]</span> <span class="email-date">[2026-10-06]</span> <span class="email-subject">Re: [PATCH v22 23/23] KVM: arm64: CCA: Control user register access
+ for Realms</span><br>&nbsp;&nbsp;&nbsp;&nbsp;Author: Gavin Shan <span class="email-sender">&lt;gshan@redhat.com&gt;</span></div>
+<div class="email-item new"><span class="new-marker">[本周]</span> <span class="email-date">[2026-10-06]</span> <span class="email-subject">Re: [PATCH v22 22/23] KVM: arm64: CCA: Expose SVE VL register before
+ VCPU finalization</span><br>&nbsp;&nbsp;&nbsp;&nbsp;Author: Suzuki K Poulose <span class="email-sender">&lt;suzuki.poulose@arm.com&gt;</span></div>
+<div class="email-item new"><span class="new-marker">[本周]</span> <span class="email-date">[2026-10-06]</span> <span class="email-subject">Re: [PATCH v22 23/23] KVM: arm64: CCA: Control user register access
+ for Realms</span><br>&nbsp;&nbsp;&nbsp;&nbsp;Author: Suzuki K Poulose <span class="email-sender">&lt;suzuki.poulose@arm.com&gt;</span></div>
+<div class="email-item new"><span class="new-marker">[本周]</span> <span class="email-date">[2026-10-06]</span> <span class="email-subject">Re: [PATCH v22 23/23] KVM: arm64: CCA: Control user register access
+ for Realms</span><br>&nbsp;&nbsp;&nbsp;&nbsp;Author: Gavin Shan <span class="email-sender">&lt;gshan@redhat.com&gt;</span></div>
+<div class="email-item new"><span class="new-marker">[本周]</span> <span class="email-date">[2026-10-06]</span> <span class="email-subject">Re: [PATCH v22 23/23] KVM: arm64: CCA: Control user register access
+ for Realms</span><br>&nbsp;&nbsp;&nbsp;&nbsp;Author: Gavin Shan <span class="email-sender">&lt;gshan@redhat.com&gt;</span></div>
+<div class="email-item new"><span class="new-marker">[本周]</span> <span class="email-date">[2026-10-06]</span> <span class="email-subject">Re: [PATCH v22 05/23] KVM: arm64: Track the type of VM in kvm_arch</span><br>&nbsp;&nbsp;&nbsp;&nbsp;Author: Marc Zyngier <span class="email-sender">&lt;maz@kernel.org&gt;</span></div>
+<div class="email-item new"><span class="new-marker">[本周]</span> <span class="email-date">[2026-10-06]</span> <span class="email-subject">Re: [PATCH v22 05/23] KVM: arm64: Track the type of VM in kvm_arch</span><br>&nbsp;&nbsp;&nbsp;&nbsp;Author: Suzuki K Poulose <span class="email-sender">&lt;suzuki.poulose@arm.com&gt;</span></div>
+<div class="email-item new"><span class="new-marker">[本周]</span> <span class="email-date">[2026-10-06]</span> <span class="email-subject">Re: [PATCH v22 09/23] KVM: arm64: Prevent unsupported vcpu features for VM types</span><br>&nbsp;&nbsp;&nbsp;&nbsp;Author: Marc Zyngier <span class="email-sender">&lt;maz@kernel.org&gt;</span></div>
+<div class="email-item new"><span class="new-marker">[本周]</span> <span class="email-date">[2026-10-06]</span> <span class="email-subject">Re: [PATCH v22 11/23] KVM: arm64: Add VM specific callback for S2 MMU operations</span><br>&nbsp;&nbsp;&nbsp;&nbsp;Author: Marc Zyngier <span class="email-sender">&lt;maz@kernel.org&gt;</span></div>
+<div class="email-item new"><span class="new-marker">[本周]</span> <span class="email-date">[2026-10-06]</span> <span class="email-subject">Re: [PATCH v22 11/23] KVM: arm64: Add VM specific callback for S2 MMU
+ operations</span><br>&nbsp;&nbsp;&nbsp;&nbsp;Author: Suzuki K Poulose <span class="email-sender">&lt;suzuki.poulose@arm.com&gt;</span></div>
+<div class="email-item new"><span class="new-marker">[本周]</span> <span class="email-date">[2026-10-06]</span> <span class="email-subject">Re: [PATCH v22 23/23] KVM: arm64: CCA: Control user register access
+ for Realms</span><br>&nbsp;&nbsp;&nbsp;&nbsp;Author: Suzuki K Poulose <span class="email-sender">&lt;suzuki.poulose@arm.com&gt;</span></div>
+<div class="email-item new"><span class="new-marker">[本周]</span> <span class="email-date">[2026-10-06]</span> <span class="email-subject">Re: [PATCH v22 11/23] KVM: arm64: Add VM specific callback for S2 MMU
+ operations</span><br>&nbsp;&nbsp;&nbsp;&nbsp;Author: Suzuki K Poulose <span class="email-sender">&lt;suzuki.poulose@arm.com&gt;</span></div>
+<div class="email-item new"><span class="new-marker">[本周]</span> <span class="email-date">[2026-10-07]</span> <span class="email-subject">Re: [PATCH v22 23/23] KVM: arm64: CCA: Control user register access
+ for Realms</span><br>&nbsp;&nbsp;&nbsp;&nbsp;Author: Gavin Shan <span class="email-sender">&lt;gshan@redhat.com&gt;</span></div>
+                </div>
+            </div>
+
+            <div class="thread">
+                <div class="thread-header">
+                    <h3>[PATCH v23 00/14] KVM: arm64: CCA: Add basic plumbing for Realms</h3>
+                </div>
+
+                <div class="thread-meta">
+                    <span>39 messages</span>
+                    <span>4 participants</span>
+                    <span>Started: 2026-10-07</span>
+                </div>
+
+                <div class="ai-summary">
+                    [AI 总结失败: Error code: 429 - {'error': {'message': 'You have no credits remaining. Add credits to continue using the API at https://platform.openai.com/settings/organization/billing/.', 'type': 'insufficient_quota', 'param': None, 'code': 'credit_balance_exhausted'}}]<br>策略: 完整 thread (历史:0 新:39, 21418 tokens)
+                </div>
+
+                <h4>Message List</h4>
+                <div class="email-list">
+<div class="email-item new"><span class="new-marker">[本周]</span> <span class="email-date">[2026-10-07]</span> <span class="email-subject">[PATCH v23 00/14] KVM: arm64: CCA: Add basic plumbing for Realms</span><br>&nbsp;&nbsp;&nbsp;&nbsp;Author: Suzuki K Poulose <span class="email-sender">&lt;suzuki.poulose@arm.com&gt;</span></div>
+<div class="email-item new"><span class="new-marker">[本周]</span> <span class="email-date">[2026-10-07]</span> <span class="email-subject">[PATCH v23 01/14] KVM: arm64: protected VM: Handle user writes to CNTVCT_EL0/CNTPCT_EL0</span><br>&nbsp;&nbsp;&nbsp;&nbsp;Author: Suzuki K Poulose <span class="email-sender">&lt;suzuki.poulose@arm.com&gt;</span></div>
+<div class="email-item new"><span class="new-marker">[本周]</span> <span class="email-date">[2026-10-07]</span> <span class="email-subject">[PATCH v23 02/14] KVM: arm64: Disable Steal time accounting for protected guests</span><br>&nbsp;&nbsp;&nbsp;&nbsp;Author: Suzuki K Poulose <span class="email-sender">&lt;suzuki.poulose@arm.com&gt;</span></div>
+<div class="email-item new"><span class="new-marker">[本周]</span> <span class="email-date">[2026-10-07]</span> <span class="email-subject">[PATCH v23 03/14] KVM: arm64: Include kvm_emulate.h in kvm/arm_psci.h</span><br>&nbsp;&nbsp;&nbsp;&nbsp;Author: Suzuki K Poulose <span class="email-sender">&lt;suzuki.poulose@arm.com&gt;</span></div>
+<div class="email-item new"><span class="new-marker">[本周]</span> <span class="email-date">[2026-10-07]</span> <span class="email-subject">[PATCH v23 04/14] KVM: arm64: Avoid including linux/kvm_host.h in kvm_pgtable.h</span><br>&nbsp;&nbsp;&nbsp;&nbsp;Author: Suzuki K Poulose <span class="email-sender">&lt;suzuki.poulose@arm.com&gt;</span></div>
+<div class="email-item new"><span class="new-marker">[本周]</span> <span class="email-date">[2026-10-07]</span> <span class="email-subject">[PATCH v23 05/14] KVM: arm64: Track the type of VM in kvm_arch</span><br>&nbsp;&nbsp;&nbsp;&nbsp;Author: Suzuki K Poulose <span class="email-sender">&lt;suzuki.poulose@arm.com&gt;</span></div>
+<div class="email-item new"><span class="new-marker">[本周]</span> <span class="email-date">[2026-10-07]</span> <span class="email-subject">[PATCH v23 06/14] KVM: arm64: Don't call vcpu_set_pauth_traps for pKVM host</span><br>&nbsp;&nbsp;&nbsp;&nbsp;Author: Suzuki K Poulose <span class="email-sender">&lt;suzuki.poulose@arm.com&gt;</span></div>
+<div class="email-item new"><span class="new-marker">[本周]</span> <span class="email-date">[2026-10-07]</span> <span class="email-subject">[PATCH v23 07/14] KVM: arm64: Refactor the vcpu_load to allow for VM specific callbacks</span><br>&nbsp;&nbsp;&nbsp;&nbsp;Author: Suzuki K Poulose <span class="email-sender">&lt;suzuki.poulose@arm.com&gt;</span></div>
+<div class="email-item new"><span class="new-marker">[本周]</span> <span class="email-date">[2026-10-07]</span> <span class="email-subject">[PATCH v23 08/14] KVM: arm64: Add vcpu load/put call backs for flavors</span><br>&nbsp;&nbsp;&nbsp;&nbsp;Author: Suzuki K Poulose <span class="email-sender">&lt;suzuki.poulose@arm.com&gt;</span></div>
+<div class="email-item new"><span class="new-marker">[本周]</span> <span class="email-date">[2026-10-07]</span> <span class="email-subject">[PATCH v23 09/14] KVM: arm64: Consolidate stage2 unmap range into kvm_stage2_unmap_range</span><br>&nbsp;&nbsp;&nbsp;&nbsp;Author: Suzuki K Poulose <span class="email-sender">&lt;suzuki.poulose@arm.com&gt;</span></div>
+<div class="email-item new"><span class="new-marker">[本周]</span> <span class="email-date">[2026-10-07]</span> <span class="email-subject">[PATCH v23 10/14] KVM: arm64: Add VM specific callback for S2 MMU operations</span><br>&nbsp;&nbsp;&nbsp;&nbsp;Author: Suzuki K Poulose <span class="email-sender">&lt;suzuki.poulose@arm.com&gt;</span></div>
+<div class="email-item new"><span class="new-marker">[本周]</span> <span class="email-date">[2026-10-07]</span> <span class="email-subject">[PATCH v23 11/14] KVM: arm64: Use a local kvm pointer in kvm_handle_guest_abort()</span><br>&nbsp;&nbsp;&nbsp;&nbsp;Author: Suzuki K Poulose <span class="email-sender">&lt;suzuki.poulose@arm.com&gt;</span></div>
+<div class="email-item new"><span class="new-marker">[本周]</span> <span class="email-date">[2026-10-07]</span> <span class="email-subject">[PATCH v23 12/14] KVM: arm64: Abstract out memory abort handling</span><br>&nbsp;&nbsp;&nbsp;&nbsp;Author: Suzuki K Poulose <span class="email-sender">&lt;suzuki.poulose@arm.com&gt;</span></div>
+<div class="email-item new"><span class="new-marker">[本周]</span> <span class="email-date">[2026-10-07]</span> <span class="email-subject">[PATCH v23 13/14] KVM: arm64: Mandate VGIC v3 for pKVM VMs and Realms</span><br>&nbsp;&nbsp;&nbsp;&nbsp;Author: Suzuki K Poulose <span class="email-sender">&lt;suzuki.poulose@arm.com&gt;</span></div>
+<div class="email-item new"><span class="new-marker">[本周]</span> <span class="email-date">[2026-10-07]</span> <span class="email-subject">[PATCH v23 14/14] KVM: arm64: Prevent unsupported vcpu features for VM types</span><br>&nbsp;&nbsp;&nbsp;&nbsp;Author: Suzuki K Poulose <span class="email-sender">&lt;suzuki.poulose@arm.com&gt;</span></div>
+<div class="email-item new"><span class="new-marker">[本周]</span> <span class="email-date">[2026-10-07]</span> <span class="email-subject">Re: [PATCH v23 09/14] KVM: arm64: Consolidate stage2 unmap range
+ into kvm_stage2_unmap_range</span><br>&nbsp;&nbsp;&nbsp;&nbsp;Author: sashiko-bot@kernel.org <span class="email-sender">&lt;sashiko-bot@kernel.org&gt;</span></div>
+<div class="email-item new"><span class="new-marker">[本周]</span> <span class="email-date">[2026-10-07]</span> <span class="email-subject">Re: [PATCH v23 03/14] KVM: arm64: Include kvm_emulate.h in
+ kvm/arm_psci.h</span><br>&nbsp;&nbsp;&nbsp;&nbsp;Author: sashiko-bot@kernel.org <span class="email-sender">&lt;sashiko-bot@kernel.org&gt;</span></div>
+<div class="email-item new"><span class="new-marker">[本周]</span> <span class="email-date">[2026-10-07]</span> <span class="email-subject">Re: [PATCH v23 09/14] KVM: arm64: Consolidate stage2 unmap range into
+ kvm_stage2_unmap_range</span><br>&nbsp;&nbsp;&nbsp;&nbsp;Author: Suzuki K Poulose <span class="email-sender">&lt;suzuki.poulose@arm.com&gt;</span></div>
+<div class="email-item new"><span class="new-marker">[本周]</span> <span class="email-date">[2026-10-07]</span> <span class="email-subject">Re: [PATCH v23 01/14] KVM: arm64: protected VM: Handle user writes to CNTVCT_EL0/CNTPCT_EL0</span><br>&nbsp;&nbsp;&nbsp;&nbsp;Author: Fuad Tabba <span class="email-sender">&lt;fuad.tabba@linux.dev&gt;</span></div>
+<div class="email-item new"><span class="new-marker">[本周]</span> <span class="email-date">[2026-10-07]</span> <span class="email-subject">Re: [PATCH v23 02/14] KVM: arm64: Disable Steal time accounting for
+ protected guests</span><br>&nbsp;&nbsp;&nbsp;&nbsp;Author: Fuad Tabba <span class="email-sender">&lt;fuad.tabba@linux.dev&gt;</span></div>
+<div class="email-item new"><span class="new-marker">[本周]</span> <span class="email-date">[2026-10-07]</span> <span class="email-subject">Re: [PATCH v23 03/14] KVM: arm64: Include kvm_emulate.h in kvm/arm_psci.h</span><br>&nbsp;&nbsp;&nbsp;&nbsp;Author: Fuad Tabba <span class="email-sender">&lt;fuad.tabba@linux.dev&gt;</span></div>
+<div class="email-item new"><span class="new-marker">[本周]</span> <span class="email-date">[2026-10-07]</span> <span class="email-subject">Re: [PATCH v23 06/14] KVM: arm64: Don't call vcpu_set_pauth_traps for
+ pKVM host</span><br>&nbsp;&nbsp;&nbsp;&nbsp;Author: Fuad Tabba <span class="email-sender">&lt;tabba@google.com&gt;</span></div>
+<div class="email-item new"><span class="new-marker">[本周]</span> <span class="email-date">[2026-10-07]</span> <span class="email-subject">Re: [PATCH v23 07/14] KVM: arm64: Refactor the vcpu_load to allow for
+ VM specific callbacks</span><br>&nbsp;&nbsp;&nbsp;&nbsp;Author: Fuad Tabba <span class="email-sender">&lt;tabba@google.com&gt;</span></div>
+<div class="email-item new"><span class="new-marker">[本周]</span> <span class="email-date">[2026-10-07]</span> <span class="email-subject">Re: [PATCH v23 08/14] KVM: arm64: Add vcpu load/put call backs for flavors</span><br>&nbsp;&nbsp;&nbsp;&nbsp;Author: Fuad Tabba <span class="email-sender">&lt;tabba@google.com&gt;</span></div>
+<div class="email-item new"><span class="new-marker">[本周]</span> <span class="email-date">[2026-10-07]</span> <span class="email-subject">Re: [PATCH v23 09/14] KVM: arm64: Consolidate stage2 unmap range into kvm_stage2_unmap_range</span><br>&nbsp;&nbsp;&nbsp;&nbsp;Author: Fuad Tabba <span class="email-sender">&lt;tabba@google.com&gt;</span></div>
+<div class="email-item new"><span class="new-marker">[本周]</span> <span class="email-date">[2026-10-07]</span> <span class="email-subject">Re: [PATCH v23 10/14] KVM: arm64: Add VM specific callback for S2 MMU operations</span><br>&nbsp;&nbsp;&nbsp;&nbsp;Author: Fuad Tabba <span class="email-sender">&lt;tabba@google.com&gt;</span></div>
+<div class="email-item new"><span class="new-marker">[本周]</span> <span class="email-date">[2026-10-07]</span> <span class="email-subject">Re: [PATCH v23 02/14] KVM: arm64: Disable Steal time accounting for
+ protected guests</span><br>&nbsp;&nbsp;&nbsp;&nbsp;Author: Suzuki K Poulose <span class="email-sender">&lt;suzuki.poulose@arm.com&gt;</span></div>
+<div class="email-item new"><span class="new-marker">[本周]</span> <span class="email-date">[2026-10-07]</span> <span class="email-subject">Re: [PATCH v23 12/14] KVM: arm64: Abstract out memory abort handling</span><br>&nbsp;&nbsp;&nbsp;&nbsp;Author: Fuad Tabba <span class="email-sender">&lt;tabba@google.com&gt;</span></div>
+<div class="email-item new"><span class="new-marker">[本周]</span> <span class="email-date">[2026-10-07]</span> <span class="email-subject">Re: [PATCH v23 13/14] KVM: arm64: Mandate VGIC v3 for pKVM VMs and Realms</span><br>&nbsp;&nbsp;&nbsp;&nbsp;Author: Fuad Tabba <span class="email-sender">&lt;fuad.tabba@linux.dev&gt;</span></div>
+<div class="email-item new"><span class="new-marker">[本周]</span> <span class="email-date">[2026-10-07]</span> <span class="email-subject">Re: [PATCH v23 14/14] KVM: arm64: Prevent unsupported vcpu features
+ for VM types</span><br>&nbsp;&nbsp;&nbsp;&nbsp;Author: Fuad Tabba <span class="email-sender">&lt;tabba@google.com&gt;</span></div>
+<div class="email-item new"><span class="new-marker">[本周]</span> <span class="email-date">[2026-10-08]</span> <span class="email-subject">Re: [PATCH v23 13/14] KVM: arm64: Mandate VGIC v3 for pKVM VMs and
+ Realms</span><br>&nbsp;&nbsp;&nbsp;&nbsp;Author: Suzuki K Poulose <span class="email-sender">&lt;suzuki.poulose@arm.com&gt;</span></div>
+<div class="email-item new"><span class="new-marker">[本周]</span> <span class="email-date">[2026-10-08]</span> <span class="email-subject">Re: [PATCH v23 13/14] KVM: arm64: Mandate VGIC v3 for pKVM VMs and Realms</span><br>&nbsp;&nbsp;&nbsp;&nbsp;Author: Fuad Tabba <span class="email-sender">&lt;fuad.tabba@linux.dev&gt;</span></div>
+<div class="email-item new"><span class="new-marker">[本周]</span> <span class="email-date">[2026-10-09]</span> <span class="email-subject">Re: [PATCH v23 14/14] KVM: arm64: Prevent unsupported vcpu features for VM types</span><br>&nbsp;&nbsp;&nbsp;&nbsp;Author: Marc Zyngier <span class="email-sender">&lt;maz@kernel.org&gt;</span></div>
+<div class="email-item new"><span class="new-marker">[本周]</span> <span class="email-date">[2026-10-09]</span> <span class="email-subject">Re: [PATCH v23 14/14] KVM: arm64: Prevent unsupported vcpu features
+ for VM types</span><br>&nbsp;&nbsp;&nbsp;&nbsp;Author: Fuad Tabba <span class="email-sender">&lt;tabba@google.com&gt;</span></div>
+<div class="email-item new"><span class="new-marker">[本周]</span> <span class="email-date">[2026-10-09]</span> <span class="email-subject">Re: [PATCH v23 14/14] KVM: arm64: Prevent unsupported vcpu features for VM types</span><br>&nbsp;&nbsp;&nbsp;&nbsp;Author: Marc Zyngier <span class="email-sender">&lt;maz@kernel.org&gt;</span></div>
+<div class="email-item new"><span class="new-marker">[本周]</span> <span class="email-date">[2026-10-09]</span> <span class="email-subject">Re: [PATCH v23 00/14] KVM: arm64: CCA: Add basic plumbing for Realms</span><br>&nbsp;&nbsp;&nbsp;&nbsp;Author: Marc Zyngier <span class="email-sender">&lt;maz@kernel.org&gt;</span></div>
+<div class="email-item new"><span class="new-marker">[本周]</span> <span class="email-date">[2026-10-09]</span> <span class="email-subject">Re: [PATCH v23 00/14] KVM: arm64: CCA: Add basic plumbing for Realms</span><br>&nbsp;&nbsp;&nbsp;&nbsp;Author: Fuad Tabba <span class="email-sender">&lt;fuad.tabba@linux.dev&gt;</span></div>
+<div class="email-item new"><span class="new-marker">[本周]</span> <span class="email-date">[2026-10-10]</span> <span class="email-subject">Re: [PATCH v23 00/14] KVM: arm64: CCA: Add basic plumbing for Realms</span><br>&nbsp;&nbsp;&nbsp;&nbsp;Author: Marc Zyngier <span class="email-sender">&lt;maz@kernel.org&gt;</span></div>
+<div class="email-item new"><span class="new-marker">[本周]</span> <span class="email-date">[2026-10-10]</span> <span class="email-subject">Re: [PATCH v23 00/14] KVM: arm64: CCA: Add basic plumbing for Realms</span><br>&nbsp;&nbsp;&nbsp;&nbsp;Author: Suzuki K Poulose <span class="email-sender">&lt;suzuki.poulose@arm.com&gt;</span></div>
+                </div>
+            </div>
+
+            <div class="thread">
+                <div class="thread-header">
+                    <h3>[PATCH v10 00/26] kvm/arm: Introduce a customizable aarch64 KVM host model</h3>
+                </div>
+
+                <div class="thread-meta">
+                    <span>27 messages</span>
+                    <span>1 participants</span>
+                    <span>Started: 2026-10-10</span>
+                </div>
+
+                <div class="ai-summary">
+                    [AI 总结失败: Error code: 429 - {'error': {'message': 'You have no credits remaining. Add credits to continue using the API at https://platform.openai.com/settings/organization/billing/.', 'type': 'insufficient_quota', 'param': None, 'code': 'credit_balance_exhausted'}}]<br>策略: 完整 thread (历史:0 新:27, 76807 tokens)
+                </div>
+
+                <h4>Message List</h4>
+                <div class="email-list">
+<div class="email-item new"><span class="new-marker">[本周]</span> <span class="email-date">[2026-10-10]</span> <span class="email-subject">[PATCH v10 00/26] kvm/arm: Introduce a customizable aarch64 KVM host model</span><br>&nbsp;&nbsp;&nbsp;&nbsp;Author: Eric Auger <span class="email-sender">&lt;eric.auger@redhat.com&gt;</span></div>
+<div class="email-item new"><span class="new-marker">[本周]</span> <span class="email-date">[2026-10-10]</span> <span class="email-subject">[PATCH v10 01/26] target/arm: Move REVIDR into isar.idregs[] storage</span><br>&nbsp;&nbsp;&nbsp;&nbsp;Author: Eric Auger <span class="email-sender">&lt;eric.auger@redhat.com&gt;</span></div>
+<div class="email-item new"><span class="new-marker">[本周]</span> <span class="email-date">[2026-10-10]</span> <span class="email-subject">[PATCH v10 02/26] target/arm: Move MIDR into isar.idregs[] storage</span><br>&nbsp;&nbsp;&nbsp;&nbsp;Author: Eric Auger <span class="email-sender">&lt;eric.auger@redhat.com&gt;</span></div>
+<div class="email-item new"><span class="new-marker">[本周]</span> <span class="email-date">[2026-10-10]</span> <span class="email-subject">[PATCH v10 03/26] target/arm: Enforce MPIDR into isar.idregs[] storage</span><br>&nbsp;&nbsp;&nbsp;&nbsp;Author: Eric Auger <span class="email-sender">&lt;eric.auger@redhat.com&gt;</span></div>
+<div class="email-item new"><span class="new-marker">[本周]</span> <span class="email-date">[2026-10-10]</span> <span class="email-subject">[PATCH v10 04/26] target/arm/cpu-sysregs.h.inc: Update with automatic generation</span><br>&nbsp;&nbsp;&nbsp;&nbsp;Author: Eric Auger <span class="email-sender">&lt;eric.auger@redhat.com&gt;</span></div>
+<div class="email-item new"><span class="new-marker">[本周]</span> <span class="email-date">[2026-10-10]</span> <span class="email-subject">[PATCH v10 05/26] arm/cpu: Add infra to handle generated ID register definitions</span><br>&nbsp;&nbsp;&nbsp;&nbsp;Author: Eric Auger <span class="email-sender">&lt;eric.auger@redhat.com&gt;</span></div>
+<div class="email-item new"><span class="new-marker">[本周]</span> <span class="email-date">[2026-10-10]</span> <span class="email-subject">[PATCH v10 06/26] target/arm/cpu-idregs.h.inc: Generate with script</span><br>&nbsp;&nbsp;&nbsp;&nbsp;Author: Eric Auger <span class="email-sender">&lt;eric.auger@redhat.com&gt;</span></div>
+<div class="email-item new"><span class="new-marker">[本周]</span> <span class="email-date">[2026-10-10]</span> <span class="email-subject">[PATCH v10 07/26] target/arm/cpu-idregs.h.inc: Generate enum values</span><br>&nbsp;&nbsp;&nbsp;&nbsp;Author: Eric Auger <span class="email-sender">&lt;eric.auger@redhat.com&gt;</span></div>
+<div class="email-item new"><span class="new-marker">[本周]</span> <span class="email-date">[2026-10-10]</span> <span class="email-subject">[PATCH v10 08/26] target/arm/cpu-idregs.h.inc: Generate reserved fields</span><br>&nbsp;&nbsp;&nbsp;&nbsp;Author: Eric Auger <span class="email-sender">&lt;eric.auger@redhat.com&gt;</span></div>
+<div class="email-item new"><span class="new-marker">[本周]</span> <span class="email-date">[2026-10-10]</span> <span class="email-subject">[PATCH v10 09/26] target/arm/cpu_idregs: Generate tables for Arm64 ID registers and fields</span><br>&nbsp;&nbsp;&nbsp;&nbsp;Author: Eric Auger <span class="email-sender">&lt;eric.auger@redhat.com&gt;</span></div>
+<div class="email-item new"><span class="new-marker">[本周]</span> <span class="email-date">[2026-10-10]</span> <span class="email-subject">[PATCH v10 10/26] target/arm/kvm: Retrieve writable ID reg map</span><br>&nbsp;&nbsp;&nbsp;&nbsp;Author: Eric Auger <span class="email-sender">&lt;eric.auger@redhat.com&gt;</span></div>
+<div class="email-item new"><span class="new-marker">[本周]</span> <span class="email-date">[2026-10-10]</span> <span class="email-subject">[PATCH v10 11/26] hw/arm/virt: Make sure virt_get_caches() keeps on reading CLIDR_EL1 as 0</span><br>&nbsp;&nbsp;&nbsp;&nbsp;Author: Eric Auger <span class="email-sender">&lt;eric.auger@redhat.com&gt;</span></div>
+<div class="email-item new"><span class="new-marker">[本周]</span> <span class="email-date">[2026-10-10]</span> <span class="email-subject">[PATCH v10 12/26] arm/kvm: Initialize isar.idregs[] with all writable host ID regs</span><br>&nbsp;&nbsp;&nbsp;&nbsp;Author: Eric Auger <span class="email-sender">&lt;eric.auger@redhat.com&gt;</span></div>
+<div class="email-item new"><span class="new-marker">[本周]</span> <span class="email-date">[2026-10-10]</span> <span class="email-subject">[PATCH v10 13/26] target/arm/cpu64: Add properties for writable IDReg fields</span><br>&nbsp;&nbsp;&nbsp;&nbsp;Author: Eric Auger <span class="email-sender">&lt;eric.auger@redhat.com&gt;</span></div>
+<div class="email-item new"><span class="new-marker">[本周]</span> <span class="email-date">[2026-10-10]</span> <span class="email-subject">[PATCH v10 14/26] target/arm/kvm: Implement SYSREG property setter and getter</span><br>&nbsp;&nbsp;&nbsp;&nbsp;Author: Eric Auger <span class="email-sender">&lt;eric.auger@redhat.com&gt;</span></div>
+<div class="email-item new"><span class="new-marker">[本周]</span> <span class="email-date">[2026-10-10]</span> <span class="email-subject">[PATCH v10 15/26] target/arm/kvm: Let kvm_arm_init_cpreg_list propagate an error handle</span><br>&nbsp;&nbsp;&nbsp;&nbsp;Author: Eric Auger <span class="email-sender">&lt;eric.auger@redhat.com&gt;</span></div>
+<div class="email-item new"><span class="new-marker">[本周]</span> <span class="email-date">[2026-10-10]</span> <span class="email-subject">[PATCH v10 16/26] target/arm/kvm: Pass an Error handle to kvm_arch_init_vcpu</span><br>&nbsp;&nbsp;&nbsp;&nbsp;Author: Eric Auger <span class="email-sender">&lt;eric.auger@redhat.com&gt;</span></div>
+<div class="email-item new"><span class="new-marker">[本周]</span> <span class="email-date">[2026-10-10]</span> <span class="email-subject">[PATCH v10 17/26] target/arm/kvm: Introduce kvm_arm_override_idreg_field helper</span><br>&nbsp;&nbsp;&nbsp;&nbsp;Author: Eric Auger <span class="email-sender">&lt;eric.auger@redhat.com&gt;</span></div>
+<div class="email-item new"><span class="new-marker">[本周]</span> <span class="email-date">[2026-10-10]</span> <span class="email-subject">[PATCH v10 18/26] target/arm/cpu64: Introduce arm_cpu_apply_sysreg_props</span><br>&nbsp;&nbsp;&nbsp;&nbsp;Author: Eric Auger <span class="email-sender">&lt;eric.auger@redhat.com&gt;</span></div>
+<div class="email-item new"><span class="new-marker">[本周]</span> <span class="email-date">[2026-10-10]</span> <span class="email-subject">[PATCH v10 19/26] target/arm/kvm: Apply SYSREG props</span><br>&nbsp;&nbsp;&nbsp;&nbsp;Author: Eric Auger <span class="email-sender">&lt;eric.auger@redhat.com&gt;</span></div>
+<div class="email-item new"><span class="new-marker">[本周]</span> <span class="email-date">[2026-10-10]</span> <span class="email-subject">[PATCH v10 20/26] target/arm/kvm: Add consistency checking for SYSREG props</span><br>&nbsp;&nbsp;&nbsp;&nbsp;Author: Eric Auger <span class="email-sender">&lt;eric.auger@redhat.com&gt;</span></div>
+<div class="email-item new"><span class="new-marker">[本周]</span> <span class="email-date">[2026-10-10]</span> <span class="email-subject">[PATCH v10 21/26] target/arm/cpu64: Add helper to test SYSREG props against a scratch vcpu</span><br>&nbsp;&nbsp;&nbsp;&nbsp;Author: Eric Auger <span class="email-sender">&lt;eric.auger@redhat.com&gt;</span></div>
+<div class="email-item new"><span class="new-marker">[本周]</span> <span class="email-date">[2026-10-10]</span> <span class="email-subject">[PATCH v10 22/26] target/arm/kvm: Add an error handle to kvm_arm_create_scratch_host_vcpu</span><br>&nbsp;&nbsp;&nbsp;&nbsp;Author: Eric Auger <span class="email-sender">&lt;eric.auger@redhat.com&gt;</span></div>
+<div class="email-item new"><span class="new-marker">[本周]</span> <span class="email-date">[2026-10-10]</span> <span class="email-subject">[PATCH v10 23/26] target/arm/kvm: Introduce kvm_arm_vcpu_prepare_init_features helper</span><br>&nbsp;&nbsp;&nbsp;&nbsp;Author: Eric Auger <span class="email-sender">&lt;eric.auger@redhat.com&gt;</span></div>
+<div class="email-item new"><span class="new-marker">[本周]</span> <span class="email-date">[2026-10-10]</span> <span class="email-subject">[PATCH v10 24/26] target/arm/kvm: Introduce kvm_arm_create_init_scratch_vcpu()</span><br>&nbsp;&nbsp;&nbsp;&nbsp;Author: Eric Auger <span class="email-sender">&lt;eric.auger@redhat.com&gt;</span></div>
+<div class="email-item new"><span class="new-marker">[本周]</span> <span class="email-date">[2026-10-10]</span> <span class="email-subject">[PATCH v10 25/26] arm-qmp-cmds: introspection for ID register props</span><br>&nbsp;&nbsp;&nbsp;&nbsp;Author: Eric Auger <span class="email-sender">&lt;eric.auger@redhat.com&gt;</span></div>
+<div class="email-item new"><span class="new-marker">[本周]</span> <span class="email-date">[2026-10-10]</span> <span class="email-subject">[PATCH v10 26/26] arm/cpu-features: Document ID reg properties</span><br>&nbsp;&nbsp;&nbsp;&nbsp;Author: Eric Auger <span class="email-sender">&lt;eric.auger@redhat.com&gt;</span></div>
+                </div>
+            </div>
+
+            <div class="thread">
+                <div class="thread-header">
+                    <h3>[PATCH v9 06/26] scripts: Introduce
+ scripts/update-aarch64-cpu-sysreg-properties.py</h3>
+                </div>
+
+                <div class="thread-meta">
+                    <span>14 messages</span>
+                    <span>2 participants</span>
+                    <span>Started: 2026-09-25</span>
+                </div>
+
+                <div class="ai-summary">
+                    [AI 总结失败: Error code: 429 - {'error': {'message': 'You have no credits remaining. Add credits to continue using the API at https://platform.openai.com/settings/organization/billing/.', 'type': 'insufficient_quota', 'param': None, 'code': 'credit_balance_exhausted'}}]<br>策略: 完整 thread (历史:6 新:8, 2120 tokens)
+                </div>
+
+                <h4>Message List</h4>
+                <div class="email-list">
+<div class="email-item historical"><span class="historical-marker">[历史]</span> <span class="email-date historical">[2026-09-25]</span> <span class="email-subject">Re: [PATCH v9 06/26] scripts: Introduce
+ scripts/update-aarch64-cpu-sysreg-properties.py</span><br>&nbsp;&nbsp;&nbsp;&nbsp;Author: Khushit Shah <span class="email-sender">&lt;khushit.shah@nutanix.com&gt;</span></div>
+<div class="email-item historical"><span class="historical-marker">[历史]</span> <span class="email-date historical">[2026-09-28]</span> <span class="email-subject">Re: [PATCH v9 16/26] target/arm/kvm: Apply SYSREG props to the final
+ vcpu</span><br>&nbsp;&nbsp;&nbsp;&nbsp;Author: Khushit Shah <span class="email-sender">&lt;khushit.shah@nutanix.com&gt;</span></div>
+<div class="email-item historical"><span class="historical-marker">[历史]</span> <span class="email-date historical">[2026-09-30]</span> <span class="email-subject">Re: [PATCH v9 17/26] target/arm/kvm: Add consistency checking for
+ SYSREG props</span><br>&nbsp;&nbsp;&nbsp;&nbsp;Author: Khushit Shah <span class="email-sender">&lt;khushit.shah@nutanix.com&gt;</span></div>
+<div class="email-item historical"><span class="historical-marker">[历史]</span> <span class="email-date historical">[2026-09-30]</span> <span class="email-subject">Re: [PATCH v9 16/26] target/arm/kvm: Apply SYSREG props to the final
+ vcpu</span><br>&nbsp;&nbsp;&nbsp;&nbsp;Author: Khushit Shah <span class="email-sender">&lt;khushit.shah@nutanix.com&gt;</span></div>
+<div class="email-item historical"><span class="historical-marker">[历史]</span> <span class="email-date historical">[2026-09-30]</span> <span class="email-subject">Re: [PATCH v9 16/26] target/arm/kvm: Apply SYSREG props to the final
+ vcpu</span><br>&nbsp;&nbsp;&nbsp;&nbsp;Author: Eric Auger <span class="email-sender">&lt;eric.auger@redhat.com&gt;</span></div>
+<div class="email-item historical"><span class="historical-marker">[历史]</span> <span class="email-date historical">[2026-10-02]</span> <span class="email-subject">Re: [PATCH v9 06/26] scripts: Introduce
+ scripts/update-aarch64-cpu-sysreg-properties.py</span><br>&nbsp;&nbsp;&nbsp;&nbsp;Author: Eric Auger <span class="email-sender">&lt;eric.auger@redhat.com&gt;</span></div>
+<div class="email-item new"><span class="new-marker">[本周]</span> <span class="email-date">[2026-10-05]</span> <span class="email-subject">Re: [PATCH v9 06/26] scripts: Introduce
+ scripts/update-aarch64-cpu-sysreg-properties.py</span><br>&nbsp;&nbsp;&nbsp;&nbsp;Author: Khushit Shah <span class="email-sender">&lt;khushit.shah@nutanix.com&gt;</span></div>
+<div class="email-item new"><span class="new-marker">[本周]</span> <span class="email-date">[2026-10-08]</span> <span class="email-subject">Re: [PATCH v9 17/26] target/arm/kvm: Add consistency checking for
+ SYSREG props</span><br>&nbsp;&nbsp;&nbsp;&nbsp;Author: Eric Auger <span class="email-sender">&lt;eric.auger@redhat.com&gt;</span></div>
+<div class="email-item new"><span class="new-marker">[本周]</span> <span class="email-date">[2026-10-08]</span> <span class="email-subject">Re: [PATCH v9 16/26] target/arm/kvm: Apply SYSREG props to the final
+ vcpu</span><br>&nbsp;&nbsp;&nbsp;&nbsp;Author: Eric Auger <span class="email-sender">&lt;eric.auger@redhat.com&gt;</span></div>
+<div class="email-item new"><span class="new-marker">[本周]</span> <span class="email-date">[2026-10-08]</span> <span class="email-subject">Re: [PATCH v9 17/26] target/arm/kvm: Add consistency checking for
+ SYSREG props</span><br>&nbsp;&nbsp;&nbsp;&nbsp;Author: Khushit Shah <span class="email-sender">&lt;khushit.shah@nutanix.com&gt;</span></div>
+<div class="email-item new"><span class="new-marker">[本周]</span> <span class="email-date">[2026-10-08]</span> <span class="email-subject">Re: [PATCH v9 16/26] target/arm/kvm: Apply SYSREG props to the final
+ vcpu</span><br>&nbsp;&nbsp;&nbsp;&nbsp;Author: Khushit Shah <span class="email-sender">&lt;khushit.shah@nutanix.com&gt;</span></div>
+<div class="email-item new"><span class="new-marker">[本周]</span> <span class="email-date">[2026-10-08]</span> <span class="email-subject">Re: [PATCH v9 16/26] target/arm/kvm: Apply SYSREG props to the final
+ vcpu</span><br>&nbsp;&nbsp;&nbsp;&nbsp;Author: Khushit Shah <span class="email-sender">&lt;khushit.shah@nutanix.com&gt;</span></div>
+<div class="email-item new"><span class="new-marker">[本周]</span> <span class="email-date">[2026-10-08]</span> <span class="email-subject">Re: [PATCH v9 17/26] target/arm/kvm: Add consistency checking for
+ SYSREG props</span><br>&nbsp;&nbsp;&nbsp;&nbsp;Author: Eric Auger <span class="email-sender">&lt;eric.auger@redhat.com&gt;</span></div>
+<div class="email-item new"><span class="new-marker">[本周]</span> <span class="email-date">[2026-10-09]</span> <span class="email-subject">Re: [PATCH v9 16/26] target/arm/kvm: Apply SYSREG props to the final
+ vcpu</span><br>&nbsp;&nbsp;&nbsp;&nbsp;Author: Eric Auger <span class="email-sender">&lt;eric.auger@redhat.com&gt;</span></div>
+                </div>
+            </div>
+
+            <div class="thread">
+                <div class="thread-header">
+                    <h3>[PATCH 0/2] Batch register access for live migration optimization</h3>
+                </div>
+
+                <div class="thread-meta">
+                    <span>12 messages</span>
+                    <span>6 participants</span>
+                    <span>Started: 2026-10-03</span>
+                </div>
+
+                <div class="ai-summary">
+                    [AI 总结失败: Error code: 429 - {'error': {'message': 'You have no credits remaining. Add credits to continue using the API at https://platform.openai.com/settings/organization/billing/.', 'type': 'insufficient_quota', 'param': None, 'code': 'credit_balance_exhausted'}}]<br>策略: 完整 thread (历史:1 新:11, 4756 tokens)
+                </div>
+
+                <h4>Message List</h4>
+                <div class="email-list">
+<div class="email-item historical"><span class="historical-marker">[历史]</span> <span class="email-date historical">[2026-10-03]</span> <span class="email-subject">Re: [PATCH 0/2] Batch register access for live migration optimization</span><br>&nbsp;&nbsp;&nbsp;&nbsp;Author: Marc Zyngier <span class="email-sender">&lt;maz@kernel.org&gt;</span></div>
+<div class="email-item new"><span class="new-marker">[本周]</span> <span class="email-date">[2026-10-08]</span> <span class="email-subject">Re: [PATCH 0/2] Batch register access for live migration optimization</span><br>&nbsp;&nbsp;&nbsp;&nbsp;Author: Yize Wang <span class="email-sender">&lt;wangyize7@huawei.com&gt;</span></div>
+<div class="email-item new"><span class="new-marker">[本周]</span> <span class="email-date">[2026-10-08]</span> <span class="email-subject">[PATCH 0/2] arm64: Add support for Apple M3 and M4 CPUs in KVM</span><br>&nbsp;&nbsp;&nbsp;&nbsp;Author: Michael Reeves via B4 Relay <span class="email-sender">&lt;devnull+michael.reeves077.gmail.com@kernel.org&gt;</span></div>
+<div class="email-item new"><span class="new-marker">[本周]</span> <span class="email-date">[2026-10-08]</span> <span class="email-subject">[PATCH 1/2] arm64: Add Apple M3 and M4 CPU part numbers</span><br>&nbsp;&nbsp;&nbsp;&nbsp;Author: Michael Reeves via B4 Relay <span class="email-sender">&lt;devnull+michael.reeves077.gmail.com@kernel.org&gt;</span></div>
+<div class="email-item new"><span class="new-marker">[本周]</span> <span class="email-date">[2026-10-08]</span> <span class="email-subject">[PATCH 2/2] arm64: Apply existing Apple CPU workarounds to M3 and
+ M4</span><br>&nbsp;&nbsp;&nbsp;&nbsp;Author: Michael Reeves via B4 Relay <span class="email-sender">&lt;devnull+michael.reeves077.gmail.com@kernel.org&gt;</span></div>
+<div class="email-item new"><span class="new-marker">[本周]</span> <span class="email-date">[2026-10-08]</span> <span class="email-subject">Re: [PATCH 2/2] arm64: Apply existing Apple CPU workarounds to M3
+ and M4</span><br>&nbsp;&nbsp;&nbsp;&nbsp;Author: sashiko-bot@kernel.org <span class="email-sender">&lt;sashiko-bot@kernel.org&gt;</span></div>
+<div class="email-item new"><span class="new-marker">[本周]</span> <span class="email-date">[2026-10-08]</span> <span class="email-subject">Re: [RESEND][PATCH 0/2] Batch register access for live migration
+ optimization</span><br>&nbsp;&nbsp;&nbsp;&nbsp;Author: Yize Wang <span class="email-sender">&lt;wangyize7@huawei.com&gt;</span></div>
+<div class="email-item new"><span class="new-marker">[本周]</span> <span class="email-date">[2026-10-08]</span> <span class="email-subject">Re: [PATCH 2/2] arm64: Apply existing Apple CPU workarounds to M3 and M4</span><br>&nbsp;&nbsp;&nbsp;&nbsp;Author: Marc Zyngier <span class="email-sender">&lt;maz@kernel.org&gt;</span></div>
+<div class="email-item new"><span class="new-marker">[本周]</span> <span class="email-date">[2026-10-09]</span> <span class="email-subject">Re: [PATCH 2/2] arm64: Apply existing Apple CPU workarounds to M3 and M4</span><br>&nbsp;&nbsp;&nbsp;&nbsp;Author: Michael Reeves <span class="email-sender">&lt;michael.reeves077@gmail.com&gt;</span></div>
+<div class="email-item new"><span class="new-marker">[本周]</span> <span class="email-date">[2026-10-09]</span> <span class="email-subject">Re: [PATCH 2/2] arm64: Apply existing Apple CPU workarounds to M3 and M4</span><br>&nbsp;&nbsp;&nbsp;&nbsp;Author: Marc Zyngier <span class="email-sender">&lt;maz@kernel.org&gt;</span></div>
+<div class="email-item new"><span class="new-marker">[本周]</span> <span class="email-date">[2026-10-10]</span> <span class="email-subject">Re: [PATCH 2/2] arm64: Apply existing Apple CPU workarounds to M3
+ and M4</span><br>&nbsp;&nbsp;&nbsp;&nbsp;Author: Myria Sarvay <span class="email-sender">&lt;myrialsarvay@gmail.com&gt;</span></div>
+<div class="email-item new"><span class="new-marker">[本周]</span> <span class="email-date">[2026-10-10]</span> <span class="email-subject">Re: [PATCH 2/2] arm64: Apply existing Apple CPU workarounds to M3 and M4</span><br>&nbsp;&nbsp;&nbsp;&nbsp;Author: Marc Zyngier <span class="email-sender">&lt;maz@kernel.org&gt;</span></div>
+                </div>
+            </div>
+
+            <div class="thread">
+                <div class="thread-header">
+                    <h3>[PATCH v1 0/3] KVM: arm64: pkvm: Extend hypervisor entering tracing reasons</h3>
+                </div>
+
+                <div class="thread-meta">
+                    <span>12 messages</span>
+                    <span>3 participants</span>
+                    <span>Started: 2026-10-09</span>
+                </div>
+
+                <div class="ai-summary">
+                    [AI 总结失败: Error code: 429 - {'error': {'message': 'You have no credits remaining. Add credits to continue using the API at https://platform.openai.com/settings/organization/billing/.', 'type': 'insufficient_quota', 'param': None, 'code': 'credit_balance_exhausted'}}]<br>策略: 完整 thread (历史:0 新:12, 4815 tokens)
+                </div>
+
+                <h4>Message List</h4>
+                <div class="email-list">
+<div class="email-item new"><span class="new-marker">[本周]</span> <span class="email-date">[2026-10-09]</span> <span class="email-subject">[PATCH v1 0/3] KVM: arm64: pkvm: Extend hypervisor entering tracing reasons</span><br>&nbsp;&nbsp;&nbsp;&nbsp;Author: Vincent Donnefort <span class="email-sender">&lt;vdonnefort@google.com&gt;</span></div>
+<div class="email-item new"><span class="new-marker">[本周]</span> <span class="email-date">[2026-10-09]</span> <span class="email-subject">[PATCH v1 1/3] KVM: arm64: Add ESR class to the hyp_enter hyp event</span><br>&nbsp;&nbsp;&nbsp;&nbsp;Author: Vincent Donnefort <span class="email-sender">&lt;vdonnefort@google.com&gt;</span></div>
+<div class="email-item new"><span class="new-marker">[本周]</span> <span class="email-date">[2026-10-09]</span> <span class="email-subject">[PATCH v1 2/3] KVM: arm64: Add guest_hvc hyp event</span><br>&nbsp;&nbsp;&nbsp;&nbsp;Author: Vincent Donnefort <span class="email-sender">&lt;vdonnefort@google.com&gt;</span></div>
+<div class="email-item new"><span class="new-marker">[本周]</span> <span class="email-date">[2026-10-09]</span> <span class="email-subject">[PATCH v1 3/3] KVM: arm64: Add host_hvc hyp event</span><br>&nbsp;&nbsp;&nbsp;&nbsp;Author: Vincent Donnefort <span class="email-sender">&lt;vdonnefort@google.com&gt;</span></div>
+<div class="email-item new"><span class="new-marker">[本周]</span> <span class="email-date">[2026-10-09]</span> <span class="email-subject">Re: [PATCH v1 1/3] KVM: arm64: Add ESR class to the hyp_enter hyp event</span><br>&nbsp;&nbsp;&nbsp;&nbsp;Author: Fuad Tabba <span class="email-sender">&lt;fuad.tabba@linux.dev&gt;</span></div>
+<div class="email-item new"><span class="new-marker">[本周]</span> <span class="email-date">[2026-10-09]</span> <span class="email-subject">Re: [PATCH v1 2/3] KVM: arm64: Add guest_hvc hyp event</span><br>&nbsp;&nbsp;&nbsp;&nbsp;Author: Fuad Tabba <span class="email-sender">&lt;fuad.tabba@linux.dev&gt;</span></div>
+<div class="email-item new"><span class="new-marker">[本周]</span> <span class="email-date">[2026-10-09]</span> <span class="email-subject">Re: [PATCH v1 3/3] KVM: arm64: Add host_hvc hyp event</span><br>&nbsp;&nbsp;&nbsp;&nbsp;Author: Fuad Tabba <span class="email-sender">&lt;fuad.tabba@linux.dev&gt;</span></div>
+<div class="email-item new"><span class="new-marker">[本周]</span> <span class="email-date">[2026-10-09]</span> <span class="email-subject">Re: [PATCH v1 1/3] KVM: arm64: Add ESR class to the hyp_enter hyp
+ event</span><br>&nbsp;&nbsp;&nbsp;&nbsp;Author: Vincent Donnefort <span class="email-sender">&lt;vdonnefort@google.com&gt;</span></div>
+<div class="email-item new"><span class="new-marker">[本周]</span> <span class="email-date">[2026-10-09]</span> <span class="email-subject">Re: [PATCH v1 2/3] KVM: arm64: Add guest_hvc hyp event</span><br>&nbsp;&nbsp;&nbsp;&nbsp;Author: Vincent Donnefort <span class="email-sender">&lt;vdonnefort@google.com&gt;</span></div>
+<div class="email-item new"><span class="new-marker">[本周]</span> <span class="email-date">[2026-10-09]</span> <span class="email-subject">Re: [PATCH v1 3/3] KVM: arm64: Add host_hvc hyp event</span><br>&nbsp;&nbsp;&nbsp;&nbsp;Author: Vincent Donnefort <span class="email-sender">&lt;vdonnefort@google.com&gt;</span></div>
+<div class="email-item new"><span class="new-marker">[本周]</span> <span class="email-date">[2026-10-09]</span> <span class="email-subject">Re: [PATCH v1 0/3] KVM: arm64: pkvm: Extend hypervisor entering tracing reasons</span><br>&nbsp;&nbsp;&nbsp;&nbsp;Author: Marc Zyngier <span class="email-sender">&lt;maz@kernel.org&gt;</span></div>
+<div class="email-item new"><span class="new-marker">[本周]</span> <span class="email-date">[2026-10-09]</span> <span class="email-subject">Re: [PATCH v1 1/3] KVM: arm64: Add ESR class to the hyp_enter hyp event</span><br>&nbsp;&nbsp;&nbsp;&nbsp;Author: Fuad Tabba <span class="email-sender">&lt;fuad.tabba@linux.dev&gt;</span></div>
+                </div>
+            </div>
+
+            <div class="thread">
+                <div class="thread-header">
+                    <h3>[PATCH v2 0/5] KVM: arm64: pKVM host hypercall and GICv5 CPU interface fixes</h3>
+                </div>
+
+                <div class="thread-meta">
+                    <span>8 messages</span>
+                    <span>2 participants</span>
+                    <span>Started: 2026-10-11</span>
+                </div>
+
+                <div class="ai-summary">
+                    [AI 总结失败: Error code: 429 - {'error': {'message': 'You have no credits remaining. Add credits to continue using the API at https://platform.openai.com/settings/organization/billing/.', 'type': 'insufficient_quota', 'param': None, 'code': 'credit_balance_exhausted'}}]<br>策略: 完整 thread (历史:0 新:8, 3956 tokens)
+                </div>
+
+                <h4>Message List</h4>
+                <div class="email-list">
+<div class="email-item new"><span class="new-marker">[本周]</span> <span class="email-date">[2026-10-11]</span> <span class="email-subject">[PATCH v2 0/5] KVM: arm64: pKVM host hypercall and GICv5 CPU interface fixes</span><br>&nbsp;&nbsp;&nbsp;&nbsp;Author: Fuad Tabba <span class="email-sender">&lt;fuad.tabba@linux.dev&gt;</span></div>
+<div class="email-item new"><span class="new-marker">[本周]</span> <span class="email-date">[2026-10-11]</span> <span class="email-subject">[PATCH v2 1/5] KVM: arm64: Reject the GICv5 CPU interface hypercalls under pKVM</span><br>&nbsp;&nbsp;&nbsp;&nbsp;Author: Fuad Tabba <span class="email-sender">&lt;fuad.tabba@linux.dev&gt;</span></div>
+<div class="email-item new"><span class="new-marker">[本周]</span> <span class="email-date">[2026-10-11]</span> <span class="email-subject">[PATCH v2 2/5] KVM: arm64: Reject the stage-2 flush hypercalls under pKVM</span><br>&nbsp;&nbsp;&nbsp;&nbsp;Author: Fuad Tabba <span class="email-sender">&lt;fuad.tabba@linux.dev&gt;</span></div>
+<div class="email-item new"><span class="new-marker">[本周]</span> <span class="email-date">[2026-10-11]</span> <span class="email-subject">[PATCH v2 3/5] KVM: arm64: Validate the host-provided vgic model in pKVM</span><br>&nbsp;&nbsp;&nbsp;&nbsp;Author: Fuad Tabba <span class="email-sender">&lt;fuad.tabba@linux.dev&gt;</span></div>
+<div class="email-item new"><span class="new-marker">[本周]</span> <span class="email-date">[2026-10-11]</span> <span class="email-subject">[PATCH v2 4/5] KVM: arm64: vgic: Do not access the GICv5 CPU interface from EL1</span><br>&nbsp;&nbsp;&nbsp;&nbsp;Author: Fuad Tabba <span class="email-sender">&lt;fuad.tabba@linux.dev&gt;</span></div>
+<div class="email-item new"><span class="new-marker">[本周]</span> <span class="email-date">[2026-10-11]</span> <span class="email-subject">[PATCH v2 5/5] KVM: arm64: Fix stale VGICv3 comments in the nVHE world switch</span><br>&nbsp;&nbsp;&nbsp;&nbsp;Author: Fuad Tabba <span class="email-sender">&lt;fuad.tabba@linux.dev&gt;</span></div>
+<div class="email-item new"><span class="new-marker">[本周]</span> <span class="email-date">[2026-10-11]</span> <span class="email-subject">Re: [PATCH v2 4/5] KVM: arm64: vgic: Do not access the GICv5 CPU interface from EL1</span><br>&nbsp;&nbsp;&nbsp;&nbsp;Author: Marc Zyngier <span class="email-sender">&lt;maz@kernel.org&gt;</span></div>
+<div class="email-item new"><span class="new-marker">[本周]</span> <span class="email-date">[2026-10-11]</span> <span class="email-subject">Re: [PATCH v2 4/5] KVM: arm64: vgic: Do not access the GICv5 CPU
+ interface from EL1</span><br>&nbsp;&nbsp;&nbsp;&nbsp;Author: Fuad Tabba <span class="email-sender">&lt;fuad.tabba@linux.dev&gt;</span></div>
+                </div>
+            </div>
+
+            <div class="thread">
+                <div class="thread-header">
+                    <h3>[PATCH v1 0/2] KVM: arm64: Fixes for hyp_trace</h3>
+                </div>
+
+                <div class="thread-meta">
+                    <span>8 messages</span>
+                    <span>4 participants</span>
+                    <span>Started: 2026-10-08</span>
+                </div>
+
+                <div class="ai-summary">
+                    [AI 总结失败: Error code: 429 - {'error': {'message': 'You have no credits remaining. Add credits to continue using the API at https://platform.openai.com/settings/organization/billing/.', 'type': 'insufficient_quota', 'param': None, 'code': 'credit_balance_exhausted'}}]<br>策略: 完整 thread (历史:0 新:8, 1717 tokens)
+                </div>
+
+                <h4>Message List</h4>
+                <div class="email-list">
+<div class="email-item new"><span class="new-marker">[本周]</span> <span class="email-date">[2026-10-08]</span> <span class="email-subject">[PATCH v1 0/2] KVM: arm64: Fixes for hyp_trace</span><br>&nbsp;&nbsp;&nbsp;&nbsp;Author: Vincent Donnefort <span class="email-sender">&lt;vdonnefort@google.com&gt;</span></div>
+<div class="email-item new"><span class="new-marker">[本周]</span> <span class="email-date">[2026-10-08]</span> <span class="email-subject">[PATCH v1 1/2] KVM: arm64: Prevent 64-bit overflow when computing hyp
+ clock rate</span><br>&nbsp;&nbsp;&nbsp;&nbsp;Author: Vincent Donnefort <span class="email-sender">&lt;vdonnefort@google.com&gt;</span></div>
+<div class="email-item new"><span class="new-marker">[本周]</span> <span class="email-date">[2026-10-08]</span> <span class="email-subject">[PATCH v1 2/2] KVM: arm64: Fix bpages backing allocation size in hyp_trace</span><br>&nbsp;&nbsp;&nbsp;&nbsp;Author: Vincent Donnefort <span class="email-sender">&lt;vdonnefort@google.com&gt;</span></div>
+<div class="email-item new"><span class="new-marker">[本周]</span> <span class="email-date">[2026-10-08]</span> <span class="email-subject">Re: [PATCH v1 2/2] KVM: arm64: Fix bpages backing allocation size
+ in hyp_trace</span><br>&nbsp;&nbsp;&nbsp;&nbsp;Author: sashiko-bot@kernel.org <span class="email-sender">&lt;sashiko-bot@kernel.org&gt;</span></div>
+<div class="email-item new"><span class="new-marker">[本周]</span> <span class="email-date">[2026-10-08]</span> <span class="email-subject">Re: [PATCH v1 1/2] KVM: arm64: Prevent 64-bit overflow when computing
+ hyp clock rate</span><br>&nbsp;&nbsp;&nbsp;&nbsp;Author: Fuad Tabba <span class="email-sender">&lt;fuad.tabba@linux.dev&gt;</span></div>
+<div class="email-item new"><span class="new-marker">[本周]</span> <span class="email-date">[2026-10-08]</span> <span class="email-subject">Re: [PATCH v1 2/2] KVM: arm64: Fix bpages backing allocation size in hyp_trace</span><br>&nbsp;&nbsp;&nbsp;&nbsp;Author: Fuad Tabba <span class="email-sender">&lt;fuad.tabba@linux.dev&gt;</span></div>
+<div class="email-item new"><span class="new-marker">[本周]</span> <span class="email-date">[2026-10-09]</span> <span class="email-subject">Re: [PATCH v1 2/2] KVM: arm64: Fix bpages backing allocation size in
+ hyp_trace</span><br>&nbsp;&nbsp;&nbsp;&nbsp;Author: Vincent Donnefort <span class="email-sender">&lt;vdonnefort@google.com&gt;</span></div>
+<div class="email-item new"><span class="new-marker">[本周]</span> <span class="email-date">[2026-10-10]</span> <span class="email-subject">Re: [PATCH v1 0/2] KVM: arm64: Fixes for hyp_trace</span><br>&nbsp;&nbsp;&nbsp;&nbsp;Author: Marc Zyngier <span class="email-sender">&lt;maz@kernel.org&gt;</span></div>
+                </div>
+            </div>
+
+            <div class="thread">
+                <div class="thread-header">
+                    <h3>[PATCH v9 00/24] KVM: s390: Introduce arm64 KVM</h3>
+                </div>
+
+                <div class="thread-meta">
+                    <span>7 messages</span>
+                    <span>2 participants</span>
+                    <span>Started: 2026-09-30</span>
+                </div>
+
+                <div class="ai-summary">
+                    [AI 总结失败: Error code: 429 - {'error': {'message': 'You have no credits remaining. Add credits to continue using the API at https://platform.openai.com/settings/organization/billing/.', 'type': 'insufficient_quota', 'param': None, 'code': 'credit_balance_exhausted'}}]<br>策略: 完整 thread (历史:4 新:3, 1097 tokens)
+                </div>
+
+                <h4>Message List</h4>
+                <div class="email-list">
+<div class="email-item historical"><span class="historical-marker">[历史]</span> <span class="email-date historical">[2026-09-30]</span> <span class="email-subject">[PATCH v9 00/24] KVM: s390: Introduce arm64 KVM</span><br>&nbsp;&nbsp;&nbsp;&nbsp;Author: Steffen Eiden <span class="email-sender">&lt;seiden@linux.ibm.com&gt;</span></div>
+<div class="email-item historical"><span class="historical-marker">[历史]</span> <span class="email-date historical">[2026-09-30]</span> <span class="email-subject">[PATCH v9 01/24] KVM: Make device name configurable</span><br>&nbsp;&nbsp;&nbsp;&nbsp;Author: Steffen Eiden <span class="email-sender">&lt;seiden@linux.ibm.com&gt;</span></div>
+<div class="email-item historical"><span class="historical-marker">[历史]</span> <span class="email-date historical">[2026-09-30]</span> <span class="email-subject">[PATCH v9 02/24] KVM: Move architecture capability Kconfigs to header defines</span><br>&nbsp;&nbsp;&nbsp;&nbsp;Author: Steffen Eiden <span class="email-sender">&lt;seiden@linux.ibm.com&gt;</span></div>
+<div class="email-item historical"><span class="historical-marker">[历史]</span> <span class="email-date historical">[2026-09-30]</span> <span class="email-subject">[PATCH v9 03/24] KVM: Replace CONFIG_KVM_MMIO with KVM_NO_MMIO</span><br>&nbsp;&nbsp;&nbsp;&nbsp;Author: Steffen Eiden <span class="email-sender">&lt;seiden@linux.ibm.com&gt;</span></div>
+<div class="email-item new"><span class="new-marker">[本周]</span> <span class="email-date">[2026-10-06]</span> <span class="email-subject">Re: [PATCH v9 01/24] KVM: Make device name configurable</span><br>&nbsp;&nbsp;&nbsp;&nbsp;Author: Hendrik Brueckner <span class="email-sender">&lt;brueckner@linux.ibm.com&gt;</span></div>
+<div class="email-item new"><span class="new-marker">[本周]</span> <span class="email-date">[2026-10-06]</span> <span class="email-subject">Re: [PATCH v9 02/24] KVM: Move architecture capability Kconfigs to
+ header defines</span><br>&nbsp;&nbsp;&nbsp;&nbsp;Author: Hendrik Brueckner <span class="email-sender">&lt;brueckner@linux.ibm.com&gt;</span></div>
+<div class="email-item new"><span class="new-marker">[本周]</span> <span class="email-date">[2026-10-06]</span> <span class="email-subject">Re: [PATCH v9 03/24] KVM: Replace CONFIG_KVM_MMIO with KVM_NO_MMIO</span><br>&nbsp;&nbsp;&nbsp;&nbsp;Author: Hendrik Brueckner <span class="email-sender">&lt;brueckner@linux.ibm.com&gt;</span></div>
+                </div>
+            </div>
+
+            <div class="thread">
+                <div class="thread-header">
+                    <h3>[PATCH] MAINTAINERS: name the kvmarm/kvmarm next branch</h3>
+                </div>
+
+                <div class="thread-meta">
+                    <span>7 messages</span>
+                    <span>3 participants</span>
+                    <span>Started: 2026-09-24</span>
+                </div>
+
+                <div class="ai-summary">
+                    [AI 总结失败: Error code: 429 - {'error': {'message': 'You have no credits remaining. Add credits to continue using the API at https://platform.openai.com/settings/organization/billing/.', 'type': 'insufficient_quota', 'param': None, 'code': 'credit_balance_exhausted'}}]<br>策略: 完整 thread (历史:6 新:1, 1222 tokens)
+                </div>
+
+                <h4>Message List</h4>
+                <div class="email-list">
+<div class="email-item historical"><span class="historical-marker">[历史]</span> <span class="email-date historical">[2026-09-24]</span> <span class="email-subject">[PATCH] MAINTAINERS: name the kvmarm/kvmarm next branch</span><br>&nbsp;&nbsp;&nbsp;&nbsp;Author: Matthias Goergens <span class="email-sender">&lt;matthias.goergens@gmail.com&gt;</span></div>
+<div class="email-item historical"><span class="historical-marker">[历史]</span> <span class="email-date historical">[2026-09-24]</span> <span class="email-subject">Re: [PATCH] MAINTAINERS: name the kvmarm/kvmarm next branch</span><br>&nbsp;&nbsp;&nbsp;&nbsp;Author: Marc Zyngier <span class="email-sender">&lt;maz@kernel.org&gt;</span></div>
+<div class="email-item historical"><span class="historical-marker">[历史]</span> <span class="email-date historical">[2026-09-24]</span> <span class="email-subject">Re: [PATCH] MAINTAINERS: name the kvmarm/kvmarm next branch</span><br>&nbsp;&nbsp;&nbsp;&nbsp;Author: Matthias Goergens <span class="email-sender">&lt;matthias.goergens@gmail.com&gt;</span></div>
+<div class="email-item historical"><span class="historical-marker">[历史]</span> <span class="email-date historical">[2026-09-24]</span> <span class="email-subject">Re: [PATCH] MAINTAINERS: name the kvmarm/kvmarm next branch</span><br>&nbsp;&nbsp;&nbsp;&nbsp;Author: Marc Zyngier <span class="email-sender">&lt;maz@kernel.org&gt;</span></div>
+<div class="email-item historical"><span class="historical-marker">[历史]</span> <span class="email-date historical">[2026-09-25]</span> <span class="email-subject">[RFC PATCH] Documentation/process: Add a maintainer entry profile for KVM/arm64</span><br>&nbsp;&nbsp;&nbsp;&nbsp;Author: Matthias Goergens <span class="email-sender">&lt;matthias.goergens@gmail.com&gt;</span></div>
+<div class="email-item historical"><span class="historical-marker">[历史]</span> <span class="email-date historical">[2026-09-27]</span> <span class="email-subject">Re: [RFC PATCH] Documentation/process: Add a maintainer entry profile for KVM/arm64</span><br>&nbsp;&nbsp;&nbsp;&nbsp;Author: Marc Zyngier <span class="email-sender">&lt;maz@kernel.org&gt;</span></div>
+<div class="email-item new"><span class="new-marker">[本周]</span> <span class="email-date">[2026-10-05]</span> <span class="email-subject">Re: [RFC PATCH] Documentation/process: Add a maintainer entry
+ profile for KVM/arm64</span><br>&nbsp;&nbsp;&nbsp;&nbsp;Author: Oliver Upton <span class="email-sender">&lt;oupton@kernel.org&gt;</span></div>
+                </div>
+            </div>
+
+            <div class="thread">
+                <div class="thread-header">
+                    <h3>[PATCH v2 0/3] KVM: arm64: timers: Program CVAL from the current count when the hardware won't apply the offset</h3>
+                </div>
+
+                <div class="thread-meta">
+                    <span>5 messages</span>
+                    <span>2 participants</span>
+                    <span>Started: 2026-10-07</span>
+                </div>
+
+                <div class="ai-summary">
+                    [AI 总结失败: Error code: 429 - {'error': {'message': 'You have no credits remaining. Add credits to continue using the API at https://platform.openai.com/settings/organization/billing/.', 'type': 'insufficient_quota', 'param': None, 'code': 'credit_balance_exhausted'}}]<br>策略: 完整 thread (历史:0 新:5, 3964 tokens)
+                </div>
+
+                <h4>Message List</h4>
+                <div class="email-list">
+<div class="email-item new"><span class="new-marker">[本周]</span> <span class="email-date">[2026-10-07]</span> <span class="email-subject">[PATCH v2 0/3] KVM: arm64: timers: Program CVAL from the current count when the hardware won't apply the offset</span><br>&nbsp;&nbsp;&nbsp;&nbsp;Author: Fuad Tabba <span class="email-sender">&lt;fuad.tabba@linux.dev&gt;</span></div>
+<div class="email-item new"><span class="new-marker">[本周]</span> <span class="email-date">[2026-10-07]</span> <span class="email-subject">[PATCH v2 1/3] KVM: arm64: timers: Compute an offset-applied CVAL from the current count</span><br>&nbsp;&nbsp;&nbsp;&nbsp;Author: Fuad Tabba <span class="email-sender">&lt;fuad.tabba@linux.dev&gt;</span></div>
+<div class="email-item new"><span class="new-marker">[本周]</span> <span class="email-date">[2026-10-07]</span> <span class="email-subject">[PATCH v2 2/3] KVM: arm64: nv: Read a guest hypervisor's CNTV_CVAL_EL0 from memory on x1e</span><br>&nbsp;&nbsp;&nbsp;&nbsp;Author: Fuad Tabba <span class="email-sender">&lt;fuad.tabba@linux.dev&gt;</span></div>
+<div class="email-item new"><span class="new-marker">[本周]</span> <span class="email-date">[2026-10-07]</span> <span class="email-subject">[PATCH v2 3/3] KVM: arm64: selftests: Test a timer set past the counter's wrap</span><br>&nbsp;&nbsp;&nbsp;&nbsp;Author: Fuad Tabba <span class="email-sender">&lt;fuad.tabba@linux.dev&gt;</span></div>
+<div class="email-item new"><span class="new-marker">[本周]</span> <span class="email-date">[2026-10-07]</span> <span class="email-subject">Re: [PATCH v2 0/3] KVM: arm64: timers: Program CVAL from the current count when the hardware won't apply the offset</span><br>&nbsp;&nbsp;&nbsp;&nbsp;Author: Marc Zyngier <span class="email-sender">&lt;maz@kernel.org&gt;</span></div>
+                </div>
+            </div>
+
+            <div class="thread">
+                <div class="thread-header">
+                    <h3>[PATCH v1 00/10] KVM: arm64: Nested stage-2 walk error handling and other small fixes</h3>
+                </div>
+
+                <div class="thread-meta">
+                    <span>4 messages</span>
+                    <span>2 participants</span>
+                    <span>Started: 2026-09-28</span>
+                </div>
+
+                <div class="ai-summary">
+                    [AI 总结失败: Error code: 429 - {'error': {'message': 'You have no credits remaining. Add credits to continue using the API at https://platform.openai.com/settings/organization/billing/.', 'type': 'insufficient_quota', 'param': None, 'code': 'credit_balance_exhausted'}}]<br>策略: 完整 thread (历史:2 新:2, 782 tokens)
+                </div>
+
+                <h4>Message List</h4>
+                <div class="email-list">
+<div class="email-item historical"><span class="historical-marker">[历史]</span> <span class="email-date historical">[2026-09-28]</span> <span class="email-subject">[PATCH v1 00/10] KVM: arm64: Nested stage-2 walk error handling and other small fixes</span><br>&nbsp;&nbsp;&nbsp;&nbsp;Author: Fuad Tabba <span class="email-sender">&lt;fuad.tabba@linux.dev&gt;</span></div>
+<div class="email-item historical"><span class="historical-marker">[历史]</span> <span class="email-date historical">[2026-09-28]</span> <span class="email-subject">[PATCH v1 03/10] KVM: arm64: nv: Don't loop on AT S12E{0,1}{R,W} with an invalid VTCR_EL2</span><br>&nbsp;&nbsp;&nbsp;&nbsp;Author: Fuad Tabba <span class="email-sender">&lt;fuad.tabba@linux.dev&gt;</span></div>
+<div class="email-item new"><span class="new-marker">[本周]</span> <span class="email-date">[2026-10-09]</span> <span class="email-subject">Re: [PATCH v1 03/10] KVM: arm64: nv: Don't loop on AT S12E{0,1}{R,W}
+ with an invalid VTCR_EL2</span><br>&nbsp;&nbsp;&nbsp;&nbsp;Author: Kajetan Puchalski <span class="email-sender">&lt;kajetan.puchalski@arm.com&gt;</span></div>
+<div class="email-item new"><span class="new-marker">[本周]</span> <span class="email-date">[2026-10-11]</span> <span class="email-subject">Re: [PATCH v1 03/10] KVM: arm64: nv: Don't loop on AT S12E{0,1}{R,W}
+ with an invalid VTCR_EL2</span><br>&nbsp;&nbsp;&nbsp;&nbsp;Author: Fuad Tabba <span class="email-sender">&lt;fuad.tabba@linux.dev&gt;</span></div>
+                </div>
+            </div>
+
+            <div class="thread">
+                <div class="thread-header">
+                    <h3>[PATCH v4 00/38] mm: make VMA flag semantics explicit, eliminate
+ VM_SPECIAL</h3>
+                </div>
+
+                <div class="thread-meta">
+                    <span>4 messages</span>
+                    <span>2 participants</span>
+                    <span>Started: 2026-10-03</span>
+                </div>
+
+                <div class="ai-summary">
+                    [AI 总结失败: Error code: 429 - {'error': {'message': 'You have no credits remaining. Add credits to continue using the API at https://platform.openai.com/settings/organization/billing/.', 'type': 'insufficient_quota', 'param': None, 'code': 'credit_balance_exhausted'}}]<br>策略: 完整 thread (历史:3 新:1, 618 tokens)
+                </div>
+
+                <h4>Message List</h4>
+                <div class="email-list">
+<div class="email-item historical"><span class="historical-marker">[历史]</span> <span class="email-date historical">[2026-10-03]</span> <span class="email-subject">[PATCH v4 00/38] mm: make VMA flag semantics explicit, eliminate
+ VM_SPECIAL</span><br>&nbsp;&nbsp;&nbsp;&nbsp;Author: Lorenzo Stoakes (ARM) <span class="email-sender">&lt;ljs@kernel.org&gt;</span></div>
+<div class="email-item historical"><span class="historical-marker">[历史]</span> <span class="email-date historical">[2026-10-03]</span> <span class="email-subject">[PATCH v4 07/38] mm: add mmap action for discontiguous kernel page
+ mapping</span><br>&nbsp;&nbsp;&nbsp;&nbsp;Author: Lorenzo Stoakes (ARM) <span class="email-sender">&lt;ljs@kernel.org&gt;</span></div>
+<div class="email-item historical"><span class="historical-marker">[历史]</span> <span class="email-date historical">[2026-10-04]</span> <span class="email-subject">Re: [PATCH v4 07/38] mm: add mmap action for discontiguous kernel
+ page mapping</span><br>&nbsp;&nbsp;&nbsp;&nbsp;Author: Suren Baghdasaryan <span class="email-sender">&lt;surenb@google.com&gt;</span></div>
+<div class="email-item new"><span class="new-marker">[本周]</span> <span class="email-date">[2026-10-09]</span> <span class="email-subject">Re: [PATCH v4 07/38] mm: add mmap action for discontiguous kernel
+ page mapping</span><br>&nbsp;&nbsp;&nbsp;&nbsp;Author: Lorenzo Stoakes (ARM) <span class="email-sender">&lt;ljs@kernel.org&gt;</span></div>
+                </div>
+            </div>
+
+            <div class="thread">
+                <div class="thread-header">
+                    <h3>[PATCH v2 0/7] KVM: arm64: vgic-v3: Make LPI disabling robust (and more)</h3>
+                </div>
+
+                <div class="thread-meta">
+                    <span>4 messages</span>
+                    <span>3 participants</span>
+                    <span>Started: 2026-09-29</span>
+                </div>
+
+                <div class="ai-summary">
+                    [AI 总结失败: Error code: 429 - {'error': {'message': 'You have no credits remaining. Add credits to continue using the API at https://platform.openai.com/settings/organization/billing/.', 'type': 'insufficient_quota', 'param': None, 'code': 'credit_balance_exhausted'}}]<br>策略: 完整 thread (历史:1 新:3, 787 tokens)
+                </div>
+
+                <h4>Message List</h4>
+                <div class="email-list">
+<div class="email-item historical"><span class="historical-marker">[历史]</span> <span class="email-date historical">[2026-09-29]</span> <span class="email-subject">[PATCH v2 0/7] KVM: arm64: vgic-v3: Make LPI disabling robust (and more)</span><br>&nbsp;&nbsp;&nbsp;&nbsp;Author: Marc Zyngier <span class="email-sender">&lt;maz@kernel.org&gt;</span></div>
+<div class="email-item new"><span class="new-marker">[本周]</span> <span class="email-date">[2026-10-08]</span> <span class="email-subject">Re: [PATCH v2 0/7] KVM: arm64: vgic-v3: Make LPI disabling robust
+ (and more)</span><br>&nbsp;&nbsp;&nbsp;&nbsp;Author: Fuad Tabba <span class="email-sender">&lt;fuad.tabba@linux.dev&gt;</span></div>
+<div class="email-item new"><span class="new-marker">[本周]</span> <span class="email-date">[2026-10-08]</span> <span class="email-subject">Re: [PATCH v2 0/7] KVM: arm64: vgic-v3: Make LPI disabling robust
+ (and more)</span><br>&nbsp;&nbsp;&nbsp;&nbsp;Author: Oliver Upton <span class="email-sender">&lt;oupton@kernel.org&gt;</span></div>
+<div class="email-item new"><span class="new-marker">[本周]</span> <span class="email-date">[2026-10-09]</span> <span class="email-subject">Re: [PATCH v2 0/7] KVM: arm64: vgic-v3: Make LPI disabling robust
+ (and more)</span><br>&nbsp;&nbsp;&nbsp;&nbsp;Author: Fuad Tabba <span class="email-sender">&lt;fuad.tabba@linux.dev&gt;</span></div>
+                </div>
+            </div>
+
+            <div class="thread">
+                <div class="thread-header">
+                    <h3>[PATCH v4] KVM: arm64: selftests: Check the pending SError state in external_aborts</h3>
+                </div>
+
+                <div class="thread-meta">
+                    <span>4 messages</span>
+                    <span>4 participants</span>
+                    <span>Started: 2026-10-06</span>
+                </div>
+
+                <div class="ai-summary">
+                    [AI 总结失败: Error code: 429 - {'error': {'message': 'You have no credits remaining. Add credits to continue using the API at https://platform.openai.com/settings/organization/billing/.', 'type': 'insufficient_quota', 'param': None, 'code': 'credit_balance_exhausted'}}]<br>策略: 完整 thread (历史:0 新:4, 1407 tokens)
+                </div>
+
+                <h4>Message List</h4>
+                <div class="email-list">
+<div class="email-item new"><span class="new-marker">[本周]</span> <span class="email-date">[2026-10-06]</span> <span class="email-subject">[PATCH v4] KVM: arm64: selftests: Check the pending SError state in external_aborts</span><br>&nbsp;&nbsp;&nbsp;&nbsp;Author: Fuad Tabba <span class="email-sender">&lt;fuad.tabba@linux.dev&gt;</span></div>
+<div class="email-item new"><span class="new-marker">[本周]</span> <span class="email-date">[2026-10-06]</span> <span class="email-subject">Re: [PATCH v4] KVM: arm64: selftests: Check the pending SError state
+ in external_aborts</span><br>&nbsp;&nbsp;&nbsp;&nbsp;Author: Oliver Upton <span class="email-sender">&lt;oupton@kernel.org&gt;</span></div>
+<div class="email-item new"><span class="new-marker">[本周]</span> <span class="email-date">[2026-10-07]</span> <span class="email-subject">Re: [PATCH v4] KVM: arm64: selftests: Check the pending SError state
+ in external_aborts</span><br>&nbsp;&nbsp;&nbsp;&nbsp;Author: Itaru Kitayama <span class="email-sender">&lt;itaru.kitayama@fujitsu.com&gt;</span></div>
+<div class="email-item new"><span class="new-marker">[本周]</span> <span class="email-date">[2026-10-07]</span> <span class="email-subject">Re: [PATCH v4] KVM: arm64: selftests: Check the pending SError state in external_aborts</span><br>&nbsp;&nbsp;&nbsp;&nbsp;Author: Marc Zyngier <span class="email-sender">&lt;maz@kernel.org&gt;</span></div>
+                </div>
+            </div>
+
+            <div class="thread">
+                <div class="thread-header">
+                    <h3>[PATCH] KVM: arm64: Pend host SErrors for protected vCPUs through HCR_EL2.VSE</h3>
+                </div>
+
+                <div class="thread-meta">
+                    <span>4 messages</span>
+                    <span>3 participants</span>
+                    <span>Started: 2026-10-05</span>
+                </div>
+
+                <div class="ai-summary">
+                    [AI 总结失败: Error code: 429 - {'error': {'message': 'You have no credits remaining. Add credits to continue using the API at https://platform.openai.com/settings/organization/billing/.', 'type': 'insufficient_quota', 'param': None, 'code': 'credit_balance_exhausted'}}]<br>策略: 完整 thread (历史:0 新:4, 1102 tokens)
+                </div>
+
+                <h4>Message List</h4>
+                <div class="email-list">
+<div class="email-item new"><span class="new-marker">[本周]</span> <span class="email-date">[2026-10-05]</span> <span class="email-subject">[PATCH] KVM: arm64: Pend host SErrors for protected vCPUs through HCR_EL2.VSE</span><br>&nbsp;&nbsp;&nbsp;&nbsp;Author: Fuad Tabba <span class="email-sender">&lt;fuad.tabba@linux.dev&gt;</span></div>
+<div class="email-item new"><span class="new-marker">[本周]</span> <span class="email-date">[2026-10-05]</span> <span class="email-subject">Re: [PATCH] KVM: arm64: Pend host SErrors for protected vCPUs through HCR_EL2.VSE</span><br>&nbsp;&nbsp;&nbsp;&nbsp;Author: Marc Zyngier <span class="email-sender">&lt;maz@kernel.org&gt;</span></div>
+<div class="email-item new"><span class="new-marker">[本周]</span> <span class="email-date">[2026-10-05]</span> <span class="email-subject">Re: [PATCH] KVM: arm64: Pend host SErrors for protected vCPUs
+ through HCR_EL2.VSE</span><br>&nbsp;&nbsp;&nbsp;&nbsp;Author: Oliver Upton <span class="email-sender">&lt;oupton@kernel.org&gt;</span></div>
+<div class="email-item new"><span class="new-marker">[本周]</span> <span class="email-date">[2026-10-05]</span> <span class="email-subject">Re: [PATCH] KVM: arm64: Pend host SErrors for protected vCPUs through HCR_EL2.VSE</span><br>&nbsp;&nbsp;&nbsp;&nbsp;Author: Fuad Tabba <span class="email-sender">&lt;fuad.tabba@linux.dev&gt;</span></div>
+                </div>
+            </div>
+
+            <div class="thread">
+                <div class="thread-header">
+                    <h3>[PATCH v5 0/2] arm64: errata: Add NXP iMX8QM workaround for A53
+ cache coherency issue</h3>
+                </div>
+
+                <div class="thread-meta">
+                    <span>3 messages</span>
+                    <span>1 participants</span>
+                    <span>Started: 2026-10-10</span>
+                </div>
+
+                <div class="ai-summary">
+                    [AI 总结失败: Error code: 429 - {'error': {'message': 'You have no credits remaining. Add credits to continue using the API at https://platform.openai.com/settings/organization/billing/.', 'type': 'insufficient_quota', 'param': None, 'code': 'credit_balance_exhausted'}}]<br>策略: 完整 thread (历史:0 新:3, 6032 tokens)
+                </div>
+
+                <h4>Message List</h4>
+                <div class="email-list">
+<div class="email-item new"><span class="new-marker">[本周]</span> <span class="email-date">[2026-10-10]</span> <span class="email-subject">[PATCH v5 0/2] arm64: errata: Add NXP iMX8QM workaround for A53
+ cache coherency issue</span><br>&nbsp;&nbsp;&nbsp;&nbsp;Author: Peng Fan (OSS) <span class="email-sender">&lt;peng.fan@oss.nxp.com&gt;</span></div>
+<div class="email-item new"><span class="new-marker">[本周]</span> <span class="email-date">[2026-10-10]</span> <span class="email-subject">[PATCH v5 1/2] arm64: cpufeature: add ARM64_CPUCAP_SOC_ERRATUM for
+ SoC-level errata</span><br>&nbsp;&nbsp;&nbsp;&nbsp;Author: Peng Fan (OSS) <span class="email-sender">&lt;peng.fan@oss.nxp.com&gt;</span></div>
+<div class="email-item new"><span class="new-marker">[本周]</span> <span class="email-date">[2026-10-10]</span> <span class="email-subject">[PATCH v5 2/2] arm64: errata: Add NXP iMX8QM workaround for A53
+ cache coherency issue</span><br>&nbsp;&nbsp;&nbsp;&nbsp;Author: Peng Fan (OSS) <span class="email-sender">&lt;peng.fan@oss.nxp.com&gt;</span></div>
+                </div>
+            </div>
+
+            <div class="thread">
+                <div class="thread-header">
+                    <h3>[PATCH kvmtool 0/5] Fix diagnostics and capability probes for
+ protected VMs</h3>
+                </div>
+
+                <div class="thread-meta">
+                    <span>3 messages</span>
+                    <span>2 participants</span>
+                    <span>Started: 2026-10-09</span>
+                </div>
+
+                <div class="ai-summary">
+                    [AI 总结失败: Error code: 429 - {'error': {'message': 'You have no credits remaining. Add credits to continue using the API at https://platform.openai.com/settings/organization/billing/.', 'type': 'insufficient_quota', 'param': None, 'code': 'credit_balance_exhausted'}}]<br>策略: 完整 thread (历史:0 新:3, 312 tokens)
+                </div>
+
+                <h4>Message List</h4>
+                <div class="email-list">
+<div class="email-item new"><span class="new-marker">[本周]</span> <span class="email-date">[2026-10-09]</span> <span class="email-subject">Re: [PATCH kvmtool 0/5] Fix diagnostics and capability probes for
+ protected VMs</span><br>&nbsp;&nbsp;&nbsp;&nbsp;Author: Fuad Tabba <span class="email-sender">&lt;fuad.tabba@linux.dev&gt;</span></div>
+<div class="email-item new"><span class="new-marker">[本周]</span> <span class="email-date">[2026-10-09]</span> <span class="email-subject">Re: [PATCH kvmtool 0/5] Fix diagnostics and capability probes for
+ protected VMs</span><br>&nbsp;&nbsp;&nbsp;&nbsp;Author: Will Deacon <span class="email-sender">&lt;will@kernel.org&gt;</span></div>
+<div class="email-item new"><span class="new-marker">[本周]</span> <span class="email-date">[2026-10-09]</span> <span class="email-subject">Re: [PATCH kvmtool 0/5] Fix diagnostics and capability probes for
+ protected VMs</span><br>&nbsp;&nbsp;&nbsp;&nbsp;Author: Fuad Tabba <span class="email-sender">&lt;fuad.tabba@linux.dev&gt;</span></div>
+                </div>
+            </div>
+
+            <div class="thread">
+                <div class="thread-header">
+                    <h3>[PATCH v4] arm64: errata: Add NXP iMX8QM workaround for A53
+ cache coherency issue</h3>
+                </div>
+
+                <div class="thread-meta">
+                    <span>3 messages</span>
+                    <span>2 participants</span>
+                    <span>Started: 2026-10-06</span>
+                </div>
+
+                <div class="ai-summary">
+                    [AI 总结失败: Error code: 429 - {'error': {'message': 'You have no credits remaining. Add credits to continue using the API at https://platform.openai.com/settings/organization/billing/.', 'type': 'insufficient_quota', 'param': None, 'code': 'credit_balance_exhausted'}}]<br>策略: 完整 thread (历史:0 新:3, 1634 tokens)
+                </div>
+
+                <h4>Message List</h4>
+                <div class="email-list">
+<div class="email-item new"><span class="new-marker">[本周]</span> <span class="email-date">[2026-10-06]</span> <span class="email-subject">Re: [PATCH v4] arm64: errata: Add NXP iMX8QM workaround for A53
+ cache coherency issue</span><br>&nbsp;&nbsp;&nbsp;&nbsp;Author: Catalin Marinas <span class="email-sender">&lt;catalin.marinas@arm.com&gt;</span></div>
+<div class="email-item new"><span class="new-marker">[本周]</span> <span class="email-date">[2026-10-08]</span> <span class="email-subject">Re: [PATCH v4] arm64: errata: Add NXP iMX8QM workaround for A53
+ cache coherency issue</span><br>&nbsp;&nbsp;&nbsp;&nbsp;Author: Peng Fan <span class="email-sender">&lt;peng.fan@oss.nxp.com&gt;</span></div>
+<div class="email-item new"><span class="new-marker">[本周]</span> <span class="email-date">[2026-10-09]</span> <span class="email-subject">Re: [PATCH v4] arm64: errata: Add NXP iMX8QM workaround for A53
+ cache coherency issue</span><br>&nbsp;&nbsp;&nbsp;&nbsp;Author: Catalin Marinas <span class="email-sender">&lt;catalin.marinas@arm.com&gt;</span></div>
+                </div>
+            </div>
+
+            <div class="thread">
+                <div class="thread-header">
+                    <h3>[PATCH v3] KVM: arm64: Only emulate an SError's entry for vCPUs with NV</h3>
+                </div>
+
+                <div class="thread-meta">
+                    <span>3 messages</span>
+                    <span>3 participants</span>
+                    <span>Started: 2026-10-07</span>
+                </div>
+
+                <div class="ai-summary">
+                    [AI 总结失败: Error code: 429 - {'error': {'message': 'You have no credits remaining. Add credits to continue using the API at https://platform.openai.com/settings/organization/billing/.', 'type': 'insufficient_quota', 'param': None, 'code': 'credit_balance_exhausted'}}]<br>策略: 完整 thread (历史:0 新:3, 1070 tokens)
+                </div>
+
+                <h4>Message List</h4>
+                <div class="email-list">
+<div class="email-item new"><span class="new-marker">[本周]</span> <span class="email-date">[2026-10-07]</span> <span class="email-subject">[PATCH v3] KVM: arm64: Only emulate an SError's entry for vCPUs with NV</span><br>&nbsp;&nbsp;&nbsp;&nbsp;Author: Fuad Tabba <span class="email-sender">&lt;fuad.tabba@linux.dev&gt;</span></div>
+<div class="email-item new"><span class="new-marker">[本周]</span> <span class="email-date">[2026-10-07]</span> <span class="email-subject">Re: [PATCH v3] KVM: arm64: Only emulate an SError's entry for vCPUs
+ with NV</span><br>&nbsp;&nbsp;&nbsp;&nbsp;Author: Oliver Upton <span class="email-sender">&lt;oupton@kernel.org&gt;</span></div>
+<div class="email-item new"><span class="new-marker">[本周]</span> <span class="email-date">[2026-10-07]</span> <span class="email-subject">Re: [PATCH v3] KVM: arm64: Only emulate an SError's entry for vCPUs with NV</span><br>&nbsp;&nbsp;&nbsp;&nbsp;Author: Marc Zyngier <span class="email-sender">&lt;maz@kernel.org&gt;</span></div>
+                </div>
+            </div>
+
+            <div class="thread">
+                <div class="thread-header">
+                    <h3>[PATCH v4] KVM: arm64: Trap guest MPAM accesses whenever MPAM is implemented</h3>
+                </div>
+
+                <div class="thread-meta">
+                    <span>3 messages</span>
+                    <span>2 participants</span>
+                    <span>Started: 2026-09-24</span>
+                </div>
+
+                <div class="ai-summary">
+                    [AI 总结失败: Error code: 429 - {'error': {'message': 'You have no credits remaining. Add credits to continue using the API at https://platform.openai.com/settings/organization/billing/.', 'type': 'insufficient_quota', 'param': None, 'code': 'credit_balance_exhausted'}}]<br>策略: 完整 thread (历史:2 新:1, 461 tokens)
+                </div>
+
+                <h4>Message List</h4>
+                <div class="email-list">
+<div class="email-item historical"><span class="historical-marker">[历史]</span> <span class="email-date historical">[2026-09-24]</span> <span class="email-subject">[PATCH v4] KVM: arm64: Trap guest MPAM accesses whenever MPAM is implemented</span><br>&nbsp;&nbsp;&nbsp;&nbsp;Author: Fuad Tabba <span class="email-sender">&lt;fuad.tabba@linux.dev&gt;</span></div>
+<div class="email-item historical"><span class="historical-marker">[历史]</span> <span class="email-date historical">[2026-09-25]</span> <span class="email-subject">Re: [PATCH v4] KVM: arm64: Trap guest MPAM accesses whenever MPAM is
+ implemented</span><br>&nbsp;&nbsp;&nbsp;&nbsp;Author: Ben Horgan <span class="email-sender">&lt;ben.horgan@arm.com&gt;</span></div>
+<div class="email-item new"><span class="new-marker">[本周]</span> <span class="email-date">[2026-10-07]</span> <span class="email-subject">Re: [PATCH v4] KVM: arm64: Trap guest MPAM accesses whenever MPAM is implemented</span><br>&nbsp;&nbsp;&nbsp;&nbsp;Author: Fuad Tabba <span class="email-sender">&lt;fuad.tabba@linux.dev&gt;</span></div>
+                </div>
+            </div>
+
+            <div class="thread">
+                <div class="thread-header">
+                    <h3>[PATCH v2] KVM: arm64: Mask SErrors in a protected vCPU's host copy at first run</h3>
+                </div>
+
+                <div class="thread-meta">
+                    <span>3 messages</span>
+                    <span>2 participants</span>
+                    <span>Started: 2026-10-06</span>
+                </div>
+
+                <div class="ai-summary">
+                    [AI 总结失败: Error code: 429 - {'error': {'message': 'You have no credits remaining. Add credits to continue using the API at https://platform.openai.com/settings/organization/billing/.', 'type': 'insufficient_quota', 'param': None, 'code': 'credit_balance_exhausted'}}]<br>策略: 完整 thread (历史:0 新:3, 1010 tokens)
+                </div>
+
+                <h4>Message List</h4>
+                <div class="email-list">
+<div class="email-item new"><span class="new-marker">[本周]</span> <span class="email-date">[2026-10-06]</span> <span class="email-subject">[PATCH v2] KVM: arm64: Mask SErrors in a protected vCPU's host copy at first run</span><br>&nbsp;&nbsp;&nbsp;&nbsp;Author: Fuad Tabba <span class="email-sender">&lt;fuad.tabba@linux.dev&gt;</span></div>
+<div class="email-item new"><span class="new-marker">[本周]</span> <span class="email-date">[2026-10-06]</span> <span class="email-subject">Re: [PATCH v2] KVM: arm64: Mask SErrors in a protected vCPU's host
+ copy at first run</span><br>&nbsp;&nbsp;&nbsp;&nbsp;Author: Oliver Upton <span class="email-sender">&lt;oupton@kernel.org&gt;</span></div>
+<div class="email-item new"><span class="new-marker">[本周]</span> <span class="email-date">[2026-10-06]</span> <span class="email-subject">Re: [PATCH v2] KVM: arm64: Mask SErrors in a protected vCPU's host
+ copy at first run</span><br>&nbsp;&nbsp;&nbsp;&nbsp;Author: Fuad Tabba <span class="email-sender">&lt;fuad.tabba@linux.dev&gt;</span></div>
+                </div>
+            </div>
+
+            <div class="thread">
+                <div class="thread-header">
+                    <h3>[PATCH v3] KVM: arm64: selftests: Check SError is not pending after delivery</h3>
+                </div>
+
+                <div class="thread-meta">
+                    <span>3 messages</span>
+                    <span>2 participants</span>
+                    <span>Started: 2026-10-05</span>
+                </div>
+
+                <div class="ai-summary">
+                    [AI 总结失败: Error code: 429 - {'error': {'message': 'You have no credits remaining. Add credits to continue using the API at https://platform.openai.com/settings/organization/billing/.', 'type': 'insufficient_quota', 'param': None, 'code': 'credit_balance_exhausted'}}]<br>策略: 完整 thread (历史:0 新:3, 678 tokens)
+                </div>
+
+                <h4>Message List</h4>
+                <div class="email-list">
+<div class="email-item new"><span class="new-marker">[本周]</span> <span class="email-date">[2026-10-05]</span> <span class="email-subject">[PATCH v3] KVM: arm64: selftests: Check SError is not pending after delivery</span><br>&nbsp;&nbsp;&nbsp;&nbsp;Author: Fuad Tabba <span class="email-sender">&lt;fuad.tabba@linux.dev&gt;</span></div>
+<div class="email-item new"><span class="new-marker">[本周]</span> <span class="email-date">[2026-10-05]</span> <span class="email-subject">Re: [PATCH v3] KVM: arm64: selftests: Check SError is not pending
+ after delivery</span><br>&nbsp;&nbsp;&nbsp;&nbsp;Author: Oliver Upton <span class="email-sender">&lt;oupton@kernel.org&gt;</span></div>
+<div class="email-item new"><span class="new-marker">[本周]</span> <span class="email-date">[2026-10-05]</span> <span class="email-subject">Re: [PATCH v3] KVM: arm64: selftests: Check SError is not pending
+ after delivery</span><br>&nbsp;&nbsp;&nbsp;&nbsp;Author: Fuad Tabba <span class="email-sender">&lt;fuad.tabba@linux.dev&gt;</span></div>
+                </div>
+            </div>
+
+            <div class="thread">
+                <div class="thread-header">
+                    <h3>[PATCH] KVM: arm64: pkvm: Drop keneldoc markers for the allocator structs</h3>
+                </div>
+
+                <div class="thread-meta">
+                    <span>3 messages</span>
+                    <span>2 participants</span>
+                    <span>Started: 2026-10-05</span>
+                </div>
+
+                <div class="ai-summary">
+                    [AI 总结失败: Error code: 429 - {'error': {'message': 'You have no credits remaining. Add credits to continue using the API at https://platform.openai.com/settings/organization/billing/.', 'type': 'insufficient_quota', 'param': None, 'code': 'credit_balance_exhausted'}}]<br>策略: 完整 thread (历史:0 新:3, 634 tokens)
+                </div>
+
+                <h4>Message List</h4>
+                <div class="email-list">
+<div class="email-item new"><span class="new-marker">[本周]</span> <span class="email-date">[2026-10-05]</span> <span class="email-subject">[PATCH] KVM: arm64: pkvm: Drop keneldoc markers for the allocator structs</span><br>&nbsp;&nbsp;&nbsp;&nbsp;Author: Vincent Donnefort <span class="email-sender">&lt;vdonnefort@google.com&gt;</span></div>
+<div class="email-item new"><span class="new-marker">[本周]</span> <span class="email-date">[2026-10-05]</span> <span class="email-subject">Re: [PATCH] KVM: arm64: pkvm: Drop keneldoc markers for the
+ allocator structs</span><br>&nbsp;&nbsp;&nbsp;&nbsp;Author: Vincent Donnefort <span class="email-sender">&lt;vdonnefort@google.com&gt;</span></div>
+<div class="email-item new"><span class="new-marker">[本周]</span> <span class="email-date">[2026-10-05]</span> <span class="email-subject">Re: [PATCH] KVM: arm64: pkvm: Drop keneldoc markers for the allocator structs</span><br>&nbsp;&nbsp;&nbsp;&nbsp;Author: Marc Zyngier <span class="email-sender">&lt;maz@kernel.org&gt;</span></div>
+                </div>
+            </div>
+
+            <div class="thread">
+                <div class="thread-header">
+                    <h3>[PATCH v2] arm64: clear_page[s] using memset</h3>
+                </div>
+
+                <div class="thread-meta">
+                    <span>2 messages</span>
+                    <span>2 participants</span>
+                    <span>Started: 2026-09-23</span>
+                </div>
+
+                <div class="ai-summary">
+                    [AI 总结失败: Error code: 429 - {'error': {'message': 'You have no credits remaining. Add credits to continue using the API at https://platform.openai.com/settings/organization/billing/.', 'type': 'insufficient_quota', 'param': None, 'code': 'credit_balance_exhausted'}}]<br>策略: 完整 thread (历史:1 新:1, 1199 tokens)
+                </div>
+
+                <h4>Message List</h4>
+                <div class="email-list">
+<div class="email-item historical"><span class="historical-marker">[历史]</span> <span class="email-date historical">[2026-09-23]</span> <span class="email-subject">Re: [PATCH v2] arm64: clear_page[s] using memset</span><br>&nbsp;&nbsp;&nbsp;&nbsp;Author: Catalin Marinas <span class="email-sender">&lt;catalin.marinas@arm.com&gt;</span></div>
+<div class="email-item new"><span class="new-marker">[本周]</span> <span class="email-date">[2026-10-08]</span> <span class="email-subject">Re: [PATCH v2] arm64: clear_page[s] using memset</span><br>&nbsp;&nbsp;&nbsp;&nbsp;Author: Muhammad Usama Anjum <span class="email-sender">&lt;usama.anjum@arm.com&gt;</span></div>
+                </div>
+            </div>
+
+            <div class="thread">
+                <div class="thread-header">
+                    <h3>[PATCH 0/3] KVM: Replace VCPU_RUN with KVM_RUN in comments and docs</h3>
+                </div>
+
+                <div class="thread-meta">
+                    <span>2 messages</span>
+                    <span>2 participants</span>
+                    <span>Started: 2026-10-07</span>
+                </div>
+
+                <div class="ai-summary">
+                    [AI 总结失败: Error code: 429 - {'error': {'message': 'You have no credits remaining. Add credits to continue using the API at https://platform.openai.com/settings/organization/billing/.', 'type': 'insufficient_quota', 'param': None, 'code': 'credit_balance_exhausted'}}]<br>策略: 完整 thread (历史:0 新:2, 258 tokens)
+                </div>
+
+                <h4>Message List</h4>
+                <div class="email-list">
+<div class="email-item new"><span class="new-marker">[本周]</span> <span class="email-date">[2026-10-07]</span> <span class="email-subject">Re: [PATCH 0/3] KVM: Replace VCPU_RUN with KVM_RUN in comments and docs</span><br>&nbsp;&nbsp;&nbsp;&nbsp;Author: Fuad Tabba <span class="email-sender">&lt;fuad.tabba@linux.dev&gt;</span></div>
+<div class="email-item new"><span class="new-marker">[本周]</span> <span class="email-date">[2026-10-07]</span> <span class="email-subject">Re: [PATCH 0/3] KVM: Replace VCPU_RUN with KVM_RUN in comments and docs</span><br>&nbsp;&nbsp;&nbsp;&nbsp;Author: Marc Zyngier <span class="email-sender">&lt;maz@kernel.org&gt;</span></div>
+                </div>
+            </div>
+
+            <div class="thread">
+                <div class="thread-header">
+                    <h3>[PATCH v2 0/2] KVM: selftests: Fix incremental build dependencies</h3>
+                </div>
+
+                <div class="thread-meta">
+                    <span>2 messages</span>
+                    <span>1 participants</span>
+                    <span>Started: 2026-09-22</span>
+                </div>
+
+                <div class="ai-summary">
+                    [AI 总结失败: Error code: 429 - {'error': {'message': 'You have no credits remaining. Add credits to continue using the API at https://platform.openai.com/settings/organization/billing/.', 'type': 'insufficient_quota', 'param': None, 'code': 'credit_balance_exhausted'}}]<br>策略: 完整 thread (历史:1 新:1, 282 tokens)
+                </div>
+
+                <h4>Message List</h4>
+                <div class="email-list">
+<div class="email-item historical"><span class="historical-marker">[历史]</span> <span class="email-date historical">[2026-09-22]</span> <span class="email-subject">[PATCH v2 0/2] KVM: selftests: Fix incremental build dependencies</span><br>&nbsp;&nbsp;&nbsp;&nbsp;Author: Fuad Tabba <span class="email-sender">&lt;fuad.tabba@linux.dev&gt;</span></div>
+<div class="email-item new"><span class="new-marker">[本周]</span> <span class="email-date">[2026-10-07]</span> <span class="email-subject">Re: [PATCH v2 0/2] KVM: selftests: Fix incremental build dependencies</span><br>&nbsp;&nbsp;&nbsp;&nbsp;Author: Fuad Tabba <span class="email-sender">&lt;fuad.tabba@linux.dev&gt;</span></div>
+                </div>
+            </div>
+
+            <div class="thread">
+                <div class="thread-header">
+                    <h3>[PATCH v3 2/2] KVM: arm64: Support BBM level 3</h3>
+                </div>
+
+                <div class="thread-meta">
+                    <span>2 messages</span>
+                    <span>2 participants</span>
+                    <span>Started: 2026-10-05</span>
+                </div>
+
+                <div class="ai-summary">
+                    [AI 总结失败: Error code: 429 - {'error': {'message': 'You have no credits remaining. Add credits to continue using the API at https://platform.openai.com/settings/organization/billing/.', 'type': 'insufficient_quota', 'param': None, 'code': 'credit_balance_exhausted'}}]<br>策略: 完整 thread (历史:0 新:2, 472 tokens)
+                </div>
+
+                <h4>Message List</h4>
+                <div class="email-list">
+<div class="email-item new"><span class="new-marker">[本周]</span> <span class="email-date">[2026-10-05]</span> <span class="email-subject">Re: [PATCH v3 2/2] KVM: arm64: Support BBM level 3</span><br>&nbsp;&nbsp;&nbsp;&nbsp;Author: Vincent Donnefort <span class="email-sender">&lt;vdonnefort@google.com&gt;</span></div>
+<div class="email-item new"><span class="new-marker">[本周]</span> <span class="email-date">[2026-10-06]</span> <span class="email-subject">Re: [PATCH v3 2/2] KVM: arm64: Support BBM level 3</span><br>&nbsp;&nbsp;&nbsp;&nbsp;Author: Mostafa Saleh <span class="email-sender">&lt;smostafa@google.com&gt;</span></div>
+                </div>
+            </div>
+
+            <div class="thread">
+                <div class="thread-header">
+                    <h3>[PATCH] arm64: Use symbolic constants for the ccmp NZCV immediates</h3>
+                </div>
+
+                <div class="thread-meta">
+                    <span>1 messages</span>
+                    <span>1 participants</span>
+                    <span>Started: 2026-10-09</span>
+                </div>
+
+                <div class="ai-summary">
+                    [AI 总结失败: Error code: 429 - {'error': {'message': 'You have no credits remaining. Add credits to continue using the API at https://platform.openai.com/settings/organization/billing/.', 'type': 'insufficient_quota', 'param': None, 'code': 'credit_balance_exhausted'}}]<br>策略: 完整 thread (历史:0 新:1, 1017 tokens)
+                </div>
+
+                <h4>Message List</h4>
+                <div class="email-list">
+<div class="email-item new"><span class="new-marker">[本周]</span> <span class="email-date">[2026-10-09]</span> <span class="email-subject">[PATCH] arm64: Use symbolic constants for the ccmp NZCV immediates</span><br>&nbsp;&nbsp;&nbsp;&nbsp;Author: Fuad Tabba <span class="email-sender">&lt;fuad.tabba@linux.dev&gt;</span></div>
+                </div>
+            </div>
+
+            <div class="thread">
+                <div class="thread-header">
+                    <h3>[PATCH] KVM: arm64: vgic-its: Update GITS_CTLR.Enabled under its_lock</h3>
+                </div>
+
+                <div class="thread-meta">
+                    <span>1 messages</span>
+                    <span>1 participants</span>
+                    <span>Started: 2026-10-07</span>
+                </div>
+
+                <div class="ai-summary">
+                    [AI 总结失败: Error code: 429 - {'error': {'message': 'You have no credits remaining. Add credits to continue using the API at https://platform.openai.com/settings/organization/billing/.', 'type': 'insufficient_quota', 'param': None, 'code': 'credit_balance_exhausted'}}]<br>策略: 完整 thread (历史:0 新:1, 107 tokens)
+                </div>
+
+                <h4>Message List</h4>
+                <div class="email-list">
+<div class="email-item new"><span class="new-marker">[本周]</span> <span class="email-date">[2026-10-07]</span> <span class="email-subject">Re: [PATCH] KVM: arm64: vgic-its: Update GITS_CTLR.Enabled under its_lock</span><br>&nbsp;&nbsp;&nbsp;&nbsp;Author: Fuad Tabba <span class="email-sender">&lt;fuad.tabba@linux.dev&gt;</span></div>
+                </div>
+            </div>
+
+            <div class="thread">
+                <div class="thread-header">
+                    <h3>[PATCH v4] arm64: errata: Add NXP iMX8QM workaround for A53
+ cache coherency issue</h3>
+                </div>
+
+                <div class="thread-meta">
+                    <span>1 messages</span>
+                    <span>1 participants</span>
+                    <span>Started: 2026-10-05</span>
+                </div>
+
+                <div class="ai-summary">
+                    [AI 总结失败: Error code: 429 - {'error': {'message': 'You have no credits remaining. Add credits to continue using the API at https://platform.openai.com/settings/organization/billing/.', 'type': 'insufficient_quota', 'param': None, 'code': 'credit_balance_exhausted'}}]<br>策略: 完整 thread (历史:0 新:1, 117 tokens)
+                </div>
+
+                <h4>Message List</h4>
+                <div class="email-list">
+<div class="email-item new"><span class="new-marker">[本周]</span> <span class="email-date">[2026-10-05]</span> <span class="email-subject">Re: [PATCH v4] arm64: errata: Add NXP iMX8QM workaround for A53
+ cache coherency issue</span><br>&nbsp;&nbsp;&nbsp;&nbsp;Author: Francesco Dolcini <span class="email-sender">&lt;francesco@dolcini.it&gt;</span></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="category">
+            <h2>RFC</h2>
+
+            <div class="thread">
+                <div class="thread-header">
+                    <h3>[RFC PATCH 0/6] KVM: guest_memfd: back guest_memfd with an imported dma-buf</h3>
+                </div>
+
+                <div class="thread-meta">
+                    <span>22 messages</span>
+                    <span>3 participants</span>
+                    <span>Started: 2026-10-05</span>
+                </div>
+
+                <div class="ai-summary">
+                    [AI 总结失败: Error code: 429 - {'error': {'message': 'You have no credits remaining. Add credits to continue using the API at https://platform.openai.com/settings/organization/billing/.', 'type': 'insufficient_quota', 'param': None, 'code': 'credit_balance_exhausted'}}]<br>策略: 完整 thread (历史:0 新:22, 100921 tokens)
+                </div>
+
+                <h4>Message List</h4>
+                <div class="email-list">
+<div class="email-item new"><span class="new-marker">[本周]</span> <span class="email-date">[2026-10-05]</span> <span class="email-subject">[RFC PATCH 0/6] KVM: guest_memfd: back guest_memfd with an imported dma-buf</span><br>&nbsp;&nbsp;&nbsp;&nbsp;Author: Fred Griffoul <span class="email-sender">&lt;griffoul@gmail.com&gt;</span></div>
+<div class="email-item new"><span class="new-marker">[本周]</span> <span class="email-date">[2026-10-05]</span> <span class="email-subject">[RFC PATCH 1/6] KVM: guest_memfd: Add a writable result to get_pfn()</span><br>&nbsp;&nbsp;&nbsp;&nbsp;Author: Fred Griffoul <span class="email-sender">&lt;griffoul@gmail.com&gt;</span></div>
+<div class="email-item new"><span class="new-marker">[本周]</span> <span class="email-date">[2026-10-05]</span> <span class="email-subject">[RFC PATCH 2/6] dma-buf: Add get_phys() to describe a physical run</span><br>&nbsp;&nbsp;&nbsp;&nbsp;Author: Fred Griffoul <span class="email-sender">&lt;griffoul@gmail.com&gt;</span></div>
+<div class="email-item new"><span class="new-marker">[本周]</span> <span class="email-date">[2026-10-05]</span> <span class="email-subject">[RFC PATCH 3/6] dma-buf: Add ranged mapping invalidation</span><br>&nbsp;&nbsp;&nbsp;&nbsp;Author: Fred Griffoul <span class="email-sender">&lt;griffoul@gmail.com&gt;</span></div>
+<div class="email-item new"><span class="new-marker">[本周]</span> <span class="email-date">[2026-10-05]</span> <span class="email-subject">[RFC PATCH 4/6] dma-buf: Allow dynamic attach without a device</span><br>&nbsp;&nbsp;&nbsp;&nbsp;Author: Fred Griffoul <span class="email-sender">&lt;griffoul@gmail.com&gt;</span></div>
+<div class="email-item new"><span class="new-marker">[本周]</span> <span class="email-date">[2026-10-05]</span> <span class="email-subject">[RFC PATCH 5/6] KVM: guest_memfd: Add dma-buf backing</span><br>&nbsp;&nbsp;&nbsp;&nbsp;Author: Fred Griffoul <span class="email-sender">&lt;griffoul@gmail.com&gt;</span></div>
+<div class="email-item new"><span class="new-marker">[本周]</span> <span class="email-date">[2026-10-05]</span> <span class="email-subject">[RFC PATCH 6/6] samples/kvm, selftests/kvm: Exercise dma-buf backing</span><br>&nbsp;&nbsp;&nbsp;&nbsp;Author: Fred Griffoul <span class="email-sender">&lt;griffoul@gmail.com&gt;</span></div>
+<div class="email-item new"><span class="new-marker">[本周]</span> <span class="email-date">[2026-10-05]</span> <span class="email-subject">Re: [RFC PATCH 2/6] dma-buf: Add get_phys() to describe a physical
+ run</span><br>&nbsp;&nbsp;&nbsp;&nbsp;Author: =?UTF-8?Q?Christian_K=C3=B6nig?= <span class="email-sender">&lt;christian.koenig@amd.com&gt;</span></div>
+<div class="email-item new"><span class="new-marker">[本周]</span> <span class="email-date">[2026-10-05]</span> <span class="email-subject">Re: [RFC PATCH 3/6] dma-buf: Add ranged mapping invalidation</span><br>&nbsp;&nbsp;&nbsp;&nbsp;Author: =?UTF-8?Q?Christian_K=C3=B6nig?= <span class="email-sender">&lt;christian.koenig@amd.com&gt;</span></div>
+<div class="email-item new"><span class="new-marker">[本周]</span> <span class="email-date">[2026-10-05]</span> <span class="email-subject">Re: [RFC PATCH 2/6] dma-buf: Add get_phys() to describe a physical run</span><br>&nbsp;&nbsp;&nbsp;&nbsp;Author: Fred Griffoul <span class="email-sender">&lt;griffoul@gmail.com&gt;</span></div>
+<div class="email-item new"><span class="new-marker">[本周]</span> <span class="email-date">[2026-10-05]</span> <span class="email-subject">Re: [RFC PATCH 2/6] dma-buf: Add get_phys() to describe a physical
+ run</span><br>&nbsp;&nbsp;&nbsp;&nbsp;Author: =?UTF-8?Q?Christian_K=C3=B6nig?= <span class="email-sender">&lt;christian.koenig@amd.com&gt;</span></div>
+<div class="email-item new"><span class="new-marker">[本周]</span> <span class="email-date">[2026-10-06]</span> <span class="email-subject">[RFC PATCH 0/9] mm: Memory providers for guest_memfd and iommufd</span><br>&nbsp;&nbsp;&nbsp;&nbsp;Author: Fred Griffoul <span class="email-sender">&lt;griffoul@gmail.com&gt;</span></div>
+<div class="email-item new"><span class="new-marker">[本周]</span> <span class="email-date">[2026-10-06]</span> <span class="email-subject">[PATCH 1/9] KVM: guest_memfd: Add a writable result to get_pfn()</span><br>&nbsp;&nbsp;&nbsp;&nbsp;Author: Fred Griffoul <span class="email-sender">&lt;griffoul@gmail.com&gt;</span></div>
+<div class="email-item new"><span class="new-marker">[本周]</span> <span class="email-date">[2026-10-06]</span> <span class="email-subject">[PATCH 2/9] mm: Add memory providers</span><br>&nbsp;&nbsp;&nbsp;&nbsp;Author: Fred Griffoul <span class="email-sender">&lt;griffoul@gmail.com&gt;</span></div>
+<div class="email-item new"><span class="new-marker">[本周]</span> <span class="email-date">[2026-10-06]</span> <span class="email-subject">[PATCH 3/9] KVM: guest_memfd: Add a memory provider backing</span><br>&nbsp;&nbsp;&nbsp;&nbsp;Author: Fred Griffoul <span class="email-sender">&lt;griffoul@gmail.com&gt;</span></div>
+<div class="email-item new"><span class="new-marker">[本周]</span> <span class="email-date">[2026-10-06]</span> <span class="email-subject">[PATCH 4/9] iommufd: Track the domains of pages that are not pinned</span><br>&nbsp;&nbsp;&nbsp;&nbsp;Author: Fred Griffoul <span class="email-sender">&lt;griffoul@gmail.com&gt;</span></div>
+<div class="email-item new"><span class="new-marker">[本周]</span> <span class="email-date">[2026-10-06]</span> <span class="email-subject">[PATCH 5/9] iommufd: Map memory provider files</span><br>&nbsp;&nbsp;&nbsp;&nbsp;Author: Fred Griffoul <span class="email-sender">&lt;griffoul@gmail.com&gt;</span></div>
+<div class="email-item new"><span class="new-marker">[本周]</span> <span class="email-date">[2026-10-06]</span> <span class="email-subject">[PATCH 6/9] iommufd/selftest: Add mock-domain IOVA queries</span><br>&nbsp;&nbsp;&nbsp;&nbsp;Author: Fred Griffoul <span class="email-sender">&lt;griffoul@gmail.com&gt;</span></div>
+<div class="email-item new"><span class="new-marker">[本周]</span> <span class="email-date">[2026-10-06]</span> <span class="email-subject">[PATCH 7/9] iommufd/selftest: Add a mock memory provider</span><br>&nbsp;&nbsp;&nbsp;&nbsp;Author: Fred Griffoul <span class="email-sender">&lt;griffoul@gmail.com&gt;</span></div>
+<div class="email-item new"><span class="new-marker">[本周]</span> <span class="email-date">[2026-10-06]</span> <span class="email-subject">[PATCH 8/9] samples/kvm: Add a memory provider sample</span><br>&nbsp;&nbsp;&nbsp;&nbsp;Author: Fred Griffoul <span class="email-sender">&lt;griffoul@gmail.com&gt;</span></div>
+<div class="email-item new"><span class="new-marker">[本周]</span> <span class="email-date">[2026-10-06]</span> <span class="email-subject">[PATCH 9/9] KVM: selftests: Test a memory provider shared by KVM and iommufd</span><br>&nbsp;&nbsp;&nbsp;&nbsp;Author: Fred Griffoul <span class="email-sender">&lt;griffoul@gmail.com&gt;</span></div>
+<div class="email-item new"><span class="new-marker">[本周]</span> <span class="email-date">[2026-10-10]</span> <span class="email-subject">Re: [RFC PATCH 0/9] mm: Memory providers for guest_memfd and iommufd</span><br>&nbsp;&nbsp;&nbsp;&nbsp;Author: Aneesh Kumar K.V <span class="email-sender">&lt;aneesh.kumar@kernel.org&gt;</span></div>
+                </div>
+            </div>
+
+            <div class="thread">
+                <div class="thread-header">
+                    <h3>[RFC 00/12] arm64: Add support for TLBI domains</h3>
+                </div>
+
+                <div class="thread-meta">
+                    <span>7 messages</span>
+                    <span>6 participants</span>
+                    <span>Started: 2026-10-01</span>
+                </div>
+
+                <div class="ai-summary">
+                    [AI 总结失败: Error code: 429 - {'error': {'message': 'You have no credits remaining. Add credits to continue using the API at https://platform.openai.com/settings/organization/billing/.', 'type': 'insufficient_quota', 'param': None, 'code': 'credit_balance_exhausted'}}]<br>策略: 完整 thread (历史:3 新:4, 1252 tokens)
+                </div>
+
+                <h4>Message List</h4>
+                <div class="email-list">
+<div class="email-item historical"><span class="historical-marker">[历史]</span> <span class="email-date historical">[2026-10-01]</span> <span class="email-subject">[RFC 00/12] arm64: Add support for TLBI domains</span><br>&nbsp;&nbsp;&nbsp;&nbsp;Author: =?UTF-8?q?Kristina=20Mart=C5=A1enko?= <span class="email-sender">&lt;kristina.martsenko@arm.com&gt;</span></div>
+<div class="email-item historical"><span class="historical-marker">[历史]</span> <span class="email-date historical">[2026-10-03]</span> <span class="email-subject">Re: [RFC 00/12] arm64: Add support for TLBI domains</span><br>&nbsp;&nbsp;&nbsp;&nbsp;Author: Marc Zyngier <span class="email-sender">&lt;maz@kernel.org&gt;</span></div>
+<div class="email-item historical"><span class="historical-marker">[历史]</span> <span class="email-date historical">[2026-10-04]</span> <span class="email-subject">Re: [RFC 00/12] arm64: Add support for TLBI domains</span><br>&nbsp;&nbsp;&nbsp;&nbsp;Author: Zi Yan <span class="email-sender">&lt;ziy@nvidia.com&gt;</span></div>
+<div class="email-item new"><span class="new-marker">[本周]</span> <span class="email-date">[2026-10-05]</span> <span class="email-subject">Re: [RFC 00/12] arm64: Add support for TLBI domains</span><br>&nbsp;&nbsp;&nbsp;&nbsp;Author: Will Deacon <span class="email-sender">&lt;will@kernel.org&gt;</span></div>
+<div class="email-item new"><span class="new-marker">[本周]</span> <span class="email-date">[2026-10-05]</span> <span class="email-subject">Re: [RFC 00/12] arm64: Add support for TLBI domains</span><br>&nbsp;&nbsp;&nbsp;&nbsp;Author: Oliver Upton <span class="email-sender">&lt;oupton@kernel.org&gt;</span></div>
+<div class="email-item new"><span class="new-marker">[本周]</span> <span class="email-date">[2026-10-05]</span> <span class="email-subject">Re: [RFC 00/12] arm64: Add support for TLBI domains</span><br>&nbsp;&nbsp;&nbsp;&nbsp;Author: Catalin Marinas <span class="email-sender">&lt;catalin.marinas@arm.com&gt;</span></div>
+<div class="email-item new"><span class="new-marker">[本周]</span> <span class="email-date">[2026-10-05]</span> <span class="email-subject">Re: [RFC 00/12] arm64: Add support for TLBI domains</span><br>&nbsp;&nbsp;&nbsp;&nbsp;Author: Zi Yan <span class="email-sender">&lt;ziy@nvidia.com&gt;</span></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="category">
+            <h2>Discussion</h2>
+
+            <div class="thread">
+                <div class="thread-header">
+                    <h3>KVM progress with FEAT_NV2</h3>
+                </div>
+
+                <div class="thread-meta">
+                    <span>1 messages</span>
+                    <span>1 participants</span>
+                    <span>Started: 2026-10-07</span>
+                </div>
+
+                <div class="ai-summary">
+                    [AI 总结失败: Error code: 429 - {'error': {'message': 'You have no credits remaining. Add credits to continue using the API at https://platform.openai.com/settings/organization/billing/.', 'type': 'insufficient_quota', 'param': None, 'code': 'credit_balance_exhausted'}}]<br>策略: 完整 thread (历史:0 新:1, 211 tokens)
+                </div>
+
+                <h4>Message List</h4>
+                <div class="email-list">
+<div class="email-item new"><span class="new-marker">[本周]</span> <span class="email-date">[2026-10-07]</span> <span class="email-subject">Re: KVM progress with FEAT_NV2</span><br>&nbsp;&nbsp;&nbsp;&nbsp;Author: Marc Zyngier <span class="email-sender">&lt;maz@kernel.org&gt;</span></div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</body>
+</html>
